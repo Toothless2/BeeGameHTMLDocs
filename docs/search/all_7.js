@@ -9,7 +9,7 @@ var searchData=
   ['honeycomb',['HoneyComb',['../class_bee_game_1_1_items_1_1_honey_comb.html',1,'BeeGame.Items.HoneyComb'],['../class_bee_game_1_1_items_1_1_honey_comb.html#af60e614837fe1f18fb49820bc9176c4b',1,'BeeGame.Items.HoneyComb.HoneyComb()'],['../class_bee_game_1_1_items_1_1_honey_comb.html#aa53b12effc886ac4a8afcdd916b91708',1,'BeeGame.Items.HoneyComb.HoneyComb(HoneyCombType type)']]],
   ['honeycomb_2ecs',['HoneyComb.cs',['../_honey_comb_8cs.html',1,'']]],
   ['honeycombtype',['HoneyCombType',['../namespace_bee_game_1_1_core_1_1_enums.html#ab98b214fa15ea071137d67bdf327b38c',1,'BeeGame::Core::Enums']]],
-  ['honeycoumbcolour',['honeyCoumbColour',['../class_bee_game_1_1_core_1_1_bee_dictionarys.html#a965e0c797be66cdac046b7b0386cfd5f',1,'BeeGame::Core::BeeDictionarys']]],
+  ['honeycoumbcolour',['honeyCoumbColour',['../class_bee_game_1_1_core_1_1_dictionarys_1_1_bee_dictionarys.html#affc578f4ad6b02bbe269e7bfd22949db',1,'BeeGame::Core::Dictionarys::BeeDictionarys']]],
   ['hot',['HOT',['../namespace_bee_game_1_1_core_1_1_enums.html#a43197651a5ee5074b870c3ec7cfc5367ac429fde8b1b986d42f84ba63dbfef6ac',1,'BeeGame::Core::Enums']]],
   ['humid',['HUMID',['../namespace_bee_game_1_1_core_1_1_enums.html#ac085daff176992d7f19cdae1dc4e1727ae21803baeeb8740c4616bc69a5e35b40',1,'BeeGame::Core::Enums']]],
   ['hummingbird',['HUMMINGBIRD',['../namespace_bee_game_1_1_core_1_1_enums.html#a1fbb2c5e19b3511a6f73f5f0056d771fa2acefbb6f248411a587d402bfa3f17d2',1,'BeeGame::Core::Enums']]]

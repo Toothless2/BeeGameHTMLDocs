@@ -16,7 +16,7 @@ var searchData=
   ['plifespan',['pLifespan',['../class_bee_game_1_1_items_1_1_normal_bee.html#af2724b0792b5b1e3af9c453f75ef0887',1,'BeeGame::Items::NormalBee']]],
   ['posion',['POSION',['../namespace_bee_game_1_1_core_1_1_enums.html#abf162a0c2a8f3ae6a16845ff1f889a79a70a4c0cd10fc77f4e760429b2633d739',1,'BeeGame::Core::Enums']]],
   ['pprodspeed',['pProdSpeed',['../class_bee_game_1_1_items_1_1_normal_bee.html#afc219630b228a70c9a7e10d16cb99c88',1,'BeeGame::Items::NormalBee']]],
-  ['prefabdictionary',['PrefabDictionary',['../class_bee_game_1_1_core_1_1_prefab_dictionary.html',1,'BeeGame.Core.PrefabDictionary'],['../class_bee_game_1_1_core_1_1_prefab_dictionary.html#afddcfbe0d23982a6c6070f61e4b63cca',1,'BeeGame.Core.PrefabDictionary.prefabDictionary()']]],
+  ['prefabdictionary',['PrefabDictionary',['../class_bee_game_1_1_core_1_1_dictionarys_1_1_prefab_dictionary.html',1,'BeeGame.Core.Dictionarys.PrefabDictionary'],['../class_bee_game_1_1_core_1_1_dictionarys_1_1_prefab_dictionary.html#ab83f59dc5ea2a49c67ad148818fe5fda',1,'BeeGame.Core.Dictionarys.PrefabDictionary.prefabDictionary()']]],
   ['prefabdictionary_2ecs',['PrefabDictionary.cs',['../_prefab_dictionary_8cs.html',1,'']]],
   ['prefabs',['Prefabs',['../class_bee_game_1_1_resources_1_1_resources.html#afe513808030d71752f72c803489212eb',1,'BeeGame::Resources::Resources']]],
   ['previousbeetype',['previousBeeType',['../class_bee_game_1_1_items_1_1_bee.html#a5c47cef38c9eba11b5728ffdbdabb882',1,'BeeGame::Items::Bee']]],

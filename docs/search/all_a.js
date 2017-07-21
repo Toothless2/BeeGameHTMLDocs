@@ -9,10 +9,10 @@ var searchData=
   ['loadchunks_2ecs',['LoadChunks.cs',['../_load_chunks_8cs.html',1,'']]],
   ['loadfile',['LoadFile',['../class_bee_game_1_1_serialization_1_1_serialization.html#af6b6e1ff52b91e9b86b77c7a3797e339',1,'BeeGame::Serialization::Serialization']]],
   ['loadplayerposition',['LoadPlayerPosition',['../class_bee_game_1_1_serialization_1_1_serialization.html#a8a8864c27b8fdcc154e206ee277c7614',1,'BeeGame::Serialization::Serialization']]],
-  ['loadprefabs',['LoadPrefabs',['../class_bee_game_1_1_core_1_1_prefab_dictionary.html#aabe727f0293ccbaa1433ff2e65bd1d93',1,'BeeGame::Core::PrefabDictionary']]],
+  ['loadprefabs',['LoadPrefabs',['../class_bee_game_1_1_core_1_1_dictionarys_1_1_prefab_dictionary.html#aa162b67d63e25675d72ef9e32a69b8cc',1,'BeeGame::Core::Dictionarys::PrefabDictionary']]],
   ['loadresources',['LoadResources',['../class_bee_game_1_1_load_resources.html',1,'BeeGame']]],
   ['loadresources_2ecs',['LoadResources.cs',['../_load_resources_8cs.html',1,'']]],
-  ['loadsprites',['LoadSprites',['../class_bee_game_1_1_core_1_1_sprite_dictionary.html#a57dafe49046b164c64aa2d84847d7936',1,'BeeGame::Core::SpriteDictionary']]],
+  ['loadsprites',['LoadSprites',['../class_bee_game_1_1_core_1_1_dictionarys_1_1_sprite_dictionary.html#acb2efdfbc1c3ab9f969fab411e84b076',1,'BeeGame::Core::Dictionarys::SpriteDictionary']]],
   ['long',['LONG',['../namespace_bee_game_1_1_core_1_1_enums.html#a1fbb2c5e19b3511a6f73f5f0056d771fac1fabfea54ec6011e694f211f3ffebf3',1,'BeeGame::Core::Enums']]],
   ['longest',['LONGEST',['../namespace_bee_game_1_1_core_1_1_enums.html#a1fbb2c5e19b3511a6f73f5f0056d771fa9a377a4877bbfa6ed4037fc64476d739',1,'BeeGame::Core::Enums']]],
   ['look',['Look',['../class_bee_game_1_1_player_1_1_player_look.html#a1b7b6854c643bb7c41df8e6c14501005',1,'BeeGame::Player::PlayerLook']]]

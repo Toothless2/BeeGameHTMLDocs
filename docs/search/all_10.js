@@ -10,6 +10,8 @@ var searchData=
   ['resources',['Resources',['../class_bee_game_1_1_resources_1_1_resources.html',1,'BeeGame.Resources.Resources'],['../class_bee_game_1_1_resources_1_1_resources.html#ad6a4adfee83a9a0510deecbb2cd58b03',1,'BeeGame.Resources.Resources.Resources()']]],
   ['resources_2edesigner_2ecs',['Resources.Designer.cs',['../_resources_8_designer_8cs.html',1,'']]],
   ['returnchange',['ReturnChange',['../class_bee_game_1_1_blocks_1_1_apiary.html#a9f08e7d11e8b05bc4f37ca404f8c697e',1,'BeeGame::Blocks::Apiary']]],
+  ['returnshapedrecipieitem',['ReturnShapedRecipieItem',['../class_bee_game_1_1_blocks_1_1_crafting_table.html#a1136f0ff12d0edf3f0c42daf88a3535e',1,'BeeGame.Blocks.CraftingTable.ReturnShapedRecipieItem(Item[] items)'],['../class_bee_game_1_1_blocks_1_1_crafting_table.html#a30345b227014d2f2e690ab3b9dddedc6',1,'BeeGame.Blocks.CraftingTable.ReturnShapedRecipieItem(string recipie)']]],
+  ['returnshapelessrecipieitem',['ReturnShapelessRecipieItem',['../class_bee_game_1_1_blocks_1_1_crafting_table.html#a975a83a53ff2f4adae3c351ac5a61eb3',1,'BeeGame::Blocks::CraftingTable']]],
   ['rotationlock',['rotationLock',['../class_bee_game_1_1_player_1_1_player_look.html#a051601731c6262e44af644c7b799eb2c',1,'BeeGame::Player::PlayerLook']]],
   ['round',['Round',['../class_bee_game_1_1_terrain_1_1_land_generation_1_1_terrain.html#a528a48005101d97ae44a8bbd0a60b1ca',1,'BeeGame::Terrain::LandGeneration::Terrain']]],
   ['roundxz',['RoundXZ',['../class_bee_game_1_1_terrain_1_1_land_generation_1_1_terrain.html#ac91d3bf563af15fb494da68ed0dcaf9f',1,'BeeGame::Terrain::LandGeneration::Terrain']]],

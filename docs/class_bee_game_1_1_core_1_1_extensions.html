@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.13"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>My Project: BeeGame.Core.Extensions Class Reference</title>
+<title>Bee Game: BeeGame.Core.Extensions Class Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -28,8 +28,9 @@
  <tbody>
  <tr style="height: 56px;">
   <td id="projectalign" style="padding-left: 0.5em;">
-   <div id="projectname">My Project
+   <div id="projectname">Bee Game
    </div>
+   <div id="projectbrief">Game made for A-Level Computing project</div>
   </td>
  </tr>
  </tbody>
@@ -95,11 +96,10 @@ Static Public Member Functions</h2></td></tr>
 <tr class="memitem:a68bb7a7b6729a6c457855c551af5b5cb"><td class="memItemLeft" align="right" valign="top">static Sprite&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_bee_game_1_1_core_1_1_extensions.html#a68bb7a7b6729a6c457855c551af5b5cb">ColourSprite</a> (this Sprite sprite, Color colour, Color[] coloursToAvoid=null, bool setTransparentToWhite=false)</td></tr>
 <tr class="memdesc:a68bb7a7b6729a6c457855c551af5b5cb"><td class="mdescLeft">&#160;</td><td class="mdescRight">Will colour the sprite given a colour and optionaly colours to avoid  <a href="#a68bb7a7b6729a6c457855c551af5b5cb">More...</a><br /></td></tr>
 <tr class="separator:a68bb7a7b6729a6c457855c551af5b5cb"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac737668c7fae12d5d547afdf7a322ce8"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_bee_game_1_1_core_1_1_extensions.html#ac737668c7fae12d5d547afdf7a322ce8">SpawnItem</a> (this <a class="el" href="class_bee_game_1_1_items_1_1_item.html">Item</a> item, <a class="el" href="struct_bee_game_1_1_core_1_1_t_h_vector3.html">THVector3</a> position, Quaternion rotation=new Quaternion())</td></tr>
+<tr class="separator:ac737668c7fae12d5d547afdf7a322ce8"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
-<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock">
-<p class="definition">Definition at line <a class="el" href="_extensions_8cs_source.html#l00011">11</a> of file <a class="el" href="_extensions_8cs_source.html">Extensions.cs</a>.</p>
-</div><h2 class="groupheader">Member Function Documentation</h2>
+<h2 class="groupheader">Member Function Documentation</h2>
 <a id="a8ac316c0075ccf0d246d1ef1e9552942"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a8ac316c0075ccf0d246d1ef1e9552942">&#9670;&nbsp;</a></span>CloneObject< T >()</h2>
 
@@ -133,8 +133,6 @@ Static Public Member Functions</h2></td></tr>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>a new object with all values copyed</dd></dl>
 <p>Mush faster than the serialize method however alot more complicated </p>
-
-<p class="definition">Definition at line <a class="el" href="_extensions_8cs_source.html#l00021">21</a> of file <a class="el" href="_extensions_8cs_source.html">Extensions.cs</a>.</p>
 
 </div>
 </div>
@@ -196,12 +194,52 @@ Static Public Member Functions</h2></td></tr>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd></dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="_extensions_8cs_source.html#l00095">95</a> of file <a class="el" href="_extensions_8cs_source.html">Extensions.cs</a>.</p>
+</div>
+</div>
+<a id="ac737668c7fae12d5d547afdf7a322ce8"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac737668c7fae12d5d547afdf7a322ce8">&#9670;&nbsp;</a></span>SpawnItem()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static void BeeGame.Core.Extensions.SpawnItem </td>
+          <td>(</td>
+          <td class="paramtype">this <a class="el" href="class_bee_game_1_1_items_1_1_item.html">Item</a>&#160;</td>
+          <td class="paramname"><em>item</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="struct_bee_game_1_1_core_1_1_t_h_vector3.html">THVector3</a>&#160;</td>
+          <td class="paramname"><em>position</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">Quaternion&#160;</td>
+          <td class="paramname"><em>rotation</em> = <code>new&#160;Quaternion()</code>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
 
 </div>
 </div>
 <hr/>The documentation for this class was generated from the following file:<ul>
-<li>C:/Users/max/Documents/GitHub/BeeGame/Code/BeeGame/BeeGame/Core/<a class="el" href="_extensions_8cs_source.html">Extensions.cs</a></li>
+<li>C:/Users/max/Documents/GitHub/BeeGame/Code/BeeGame/BeeGame/Core/<a class="el" href="_extensions_8cs.html">Extensions.cs</a></li>
 </ul>
 </div><!-- contents -->
 </div><!-- doc-content -->

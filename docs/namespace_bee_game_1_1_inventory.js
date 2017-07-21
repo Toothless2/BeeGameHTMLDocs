@@ -1,5 +1,6 @@
 var namespace_bee_game_1_1_inventory =
 [
+    [ "BlockInventory", "namespace_bee_game_1_1_inventory_1_1_block_inventory.html", "namespace_bee_game_1_1_inventory_1_1_block_inventory" ],
     [ "Player_Inventory", "namespace_bee_game_1_1_inventory_1_1_player___inventory.html", "namespace_bee_game_1_1_inventory_1_1_player___inventory" ],
     [ "ApiaryInventory", "class_bee_game_1_1_inventory_1_1_apiary_inventory.html", "class_bee_game_1_1_inventory_1_1_apiary_inventory" ],
     [ "ChestInventory", "class_bee_game_1_1_inventory_1_1_chest_inventory.html", "class_bee_game_1_1_inventory_1_1_chest_inventory" ],
