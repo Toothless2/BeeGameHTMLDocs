@@ -1,0 +1,454 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<link rel="stylesheet" type="text/css" href="../../../stylesheet.css">
+  <link rel="stylesheet" type="text/css" href="../../../stylesheet2.css">
+  <link rel="stylesheet" type="text/css" href="../../../blog.css">
+	<title>A Toothless Blog - Music Player #1</title>
+</head>
+<body class="background">
+<div class="container">
+<ul class="nav">
+  <a href="../../../index.html"><li>Home</li></a>
+  <a href="../../../allposts.html"><li>All Posts</li></a>
+  <li class="submenuhead"><a href="../../../programming.html">Programming</a>
+    <ul class="submenu">
+      <a href="../../../programming/csharptutorials.html"><li>Full C# Tutorial</li></a>
+      <a href="../../../programming/musicplayer.html"><li>Command Line Music Player</li></a>
+    </ul>
+  </li>
+  <a href="../misc.html"><li>Misc</li></a>
+</ul>
+<hr>
+<h1 class="centertext">Make a Simple Command Line Music Player With C# #2</h1>
+<hr>
+<pre>This time we are going to add the ability for users to enter a music folder location then have the program import all music files from that folder and its sub-directories.</pre>
+<hr>
+<pre>Let&apos;s start by setting up the variables and references that we are going to need in this tutorial</pre>
+<pre id=background>
+
+<keyword>using</keyword> System.IO;
+<mark><keyword>using</keyword> System.Collections.Generic;</mark>
+<keyword>using</keyword> WMPLib;
+
+...
+
+<keyword>static class</keyword> <class>Program</class>
+{
+  <keyword>private static</keyword> <mark><class>List</class>&lt;<keyword>string</keyword>&gt;</mark> musicPath <mark>= <keyword>new</keyword> <class>List</class>&lt;<keyword>string</keyword>&gt;()</mark>;
+  <keyword>private static</keyword> <interface>WindowsMediaPlayer</interface> player <mark>= <keyword>new</keyword> <interface>WindowsMediaPlayer</interface>()</mark>; 
+
+  <keyword>static void</keyword> Main(<keyword>string</keyword>[] args)
+  {
+    <mark>GetPaths();</mark>
+    <class>Console</class>.ReadLine();
+  }
+
+  <mark><keyword>private static void</keyword> GetPaths()
+  {
+  }</mark>
+}
+
+</pre>
+<pre>Here we have changed the music path to a <class>List</class> so that we can store every music file found in the given folder and its sub directories, the <class>List</class> comes from the <span id=codefont>System.Collections.Generic</span> library.
+
+We are also initializing the variables as they are created just for clarity.
+
+Then after removing all previous code from the <span id=codefont>Main()</span> method and then adding a call to a new method called <span id=codefont>GetPaths()</span>, underneath this we create it as <keyword>private static</keyword> with a return type of <keyword>void</keyword>. This means that the method can only be acessed from inside the class it is defined, <keyword>private</keyword>, and that it cannot be instanced <keyword>static</keyword></pre>
+
+<details id=codedetails>
+  <summary id=codesummary>Instanced and Static Variables</summary>
+<pre id= normalfont>The difference between an instance and a <keyword>static</keyword> object is subtle however very useful and important.
+  
+When a <keyword>class</keyword> is created if it has instance variables new ones will be created and associated to that <keyword>new class</keyword> object with their default values. Theise variables are seperate from all other instances of the <keyword>class</keyword> so changing their values will <b>NOT</b> affect the values on another instance of the <keyword>class</keyword>. However when a static variable is used this variable is not recreated each time a new instance of the class is created. So changing their values <b>WILL</b> affect all other instances of the <keyword>class</keyword>.
+  
+An example of this is shown below
+<pre id=background>
+
+<keyword>public class</keyword> <class>Foo</class>
+{
+    <keyword>public static int</keyword> staticInt;
+    <keyword>public int</keyword> instancedInt;
+
+    <keyword>public int</keyword> GetStaticInt()
+    {
+        <keyword>return</keyword> staticInt;
+    }
+}
+
+<keyword>public class</keyword> <class>Example</class>
+{
+    <keyword>void</keyword> Bar()
+    {
+        <keyword>var</keyword> var1 = <keyword>new</keyword> <class>Foo</class>();
+        <keyword>var</keyword> var2 = <keyword>new</keyword> <class>Foo</class>();
+
+        var1.instancedInt = <interface>2</interface>;
+        var2.instancedInt = <interface>5</interface>;
+
+        var1.staticInt = <interface>3</interface>; <comment>//Error</comment>
+        <class>Foo</class>.staticInt = <interface>3</interface>; <comment>//works</comment>
+
+        <class>Console</class>.WriteLine(var1.instancedInt); <comment>//returns 2</comment>
+        <class>Console</class>.WriteLine(var2.instancedInt); <comment>//returns 5</comment>
+        <class>Console</class>.WriteLine(var1.GetStaticInt()); <comment>//returns 3</comment>
+        <class>Console</class>.WriteLine(var2.GetStaticInt()); <comment>//returns 3</comment>
+    }
+}
+
+</pre>
+
+Here is also another explanation of instanced and static variables: <a href="http://www.programmerinterview.com/index.php/c-cplusplus/whats-the-difference-between-a-class-variable-and-an-instance-variable/" target="_blank">Programming Interview.com - What’s the difference between a class variable and an instance variable?</a>
+And another from Dot Net Perls: <a href="https://www.dotnetperls.com/static" target="_blank">Dot Net Perls - C# Static Method, Class, and Constructor</a>
+  </pre>
+</details>
+
+<details id=codedetails>
+<summary id=codesummary>Static and Instanced Methods</summary>
+<pre>A <keyword>static</keyword> method works in the same way to the <keyword>static</keyword> variable. However appart from the arguments passed into the function and the variables defined in the function the only other outside variables it may use are the <keyword>static</keyword> variables in the containing class. However, unlike a <keyword>static</keyword> variable a <keyword>static</keyword> method can be called from an instance of the <keyword>class</keyword>.
+
+An instance method can access non-static or instanced variables in the class and will reference the variable values from the instance that it is called from. However, this method must be called from an instance of the class.
+
+An example and explanation from Dot Net Perls: <a href="https://www.dotnetperls.com/static" target="_blank">Dot Net Perls - C# Static Method, Class, and Constructor</a>
+</pre>
+</details>
+
+<details id=codedetails>
+  <summary id=codesummary>Return Types</summary>
+  <pre>A return type is the type of data that the method will give back.
+So if you don&apos;t want a method to return anything you can say that the return type is <keyword>void</keyword>. However, if you want to return some data you can return any type of data, for example you can return a <keyword>class</keyword> just as easily as an <keyword>int</keyword>.
+  
+To <keyword>return</keyword> some data from a method all you need to do is use the <keyword>return</keyword> before the data you want to return. An example is shown below</pre>
+  
+<pre id=background>
+
+<keyword>public int</keyword> <class>Foo</class>()
+{
+  <keyword>return</keyword> <interface>1</interface>; 
+}
+
+</pre>
+</details>
+<details id=codedetails>
+  <summary id=codesummary>Why use a <span id=codefont><class>List</class>&#60;<keyword>string</keyword>&#62;</span> and not an array?</summary>
+  <pre>This is because when searching through the files we will not know how many music files there actually are. As an array requires a length when initialized this would either cause us to set a size to large or too small, this is not ideal so instead we use a List
+  </pre>
+</details>
+
+<details id=codedetails>
+  <summary id=codesummary>When use a <span id=codefont><class>List</class>&#60;&#62;</span> as opposed to an array?</summary>
+  <pre>There is no set rule as to when to and when not to use an array as opposed to <span id=codefont><class>List</class>&#60;&#62;</span> so I can only suggest when to use them and tell you when I would use one as opposed to the other. I would use a <span id=codefont><class>List</class>&#60;&#62;</span> when the ammout of data is ambiguous so there is no way to tell the length the array should be. Situations like this arise when users input is requred that changes the ammout of elements in the <span id=codefont><class>List</class>&#60;&#62;</span>. All other times I would most likely use an array. There are also a few cases when the C# Linq library will only work with a <span id=codefont><class>List</class>&#60;&#62;</span> so when a Linq&apos;s function has the possibility of being required I will also use a <span id=codefont><class>List</class>&#60;&#62;</span>.</pre>
+</details>
+<hr>
+<pre id=background>
+
+...
+<keyword>private static void</keyword> GetPaths()
+{
+  <mark><keyword>string</keyword> inputPath = <string>""</string>;
+
+  <class>Console</class>.WriteLine(<string>"Please enter path to music folder"</string>);
+
+  inputPath = <class>Console</class>.ReadLine();
+
+  <class>Console</class>.WriteLine(inputPath);</mark>
+}
+...
+
+</pre>
+<pre>Now we crate a new variable to store the user input, <span id=codefont>inputPath</span> and after that prompt the user to enter something.
+Then the program will wait for input and to ensure that the code has worked it prints out the input to the console. The this the users also does not have to type \\ between each folder as that is handled for us.
+
+Result below:</pre>
+<img src="img1.png" alt="Displays User File Path Input" class="centerimg">
+<pre>As seen the prompt appears. The user is allowed to enter an input then after enter is pressed the input is immediately output. The console then stays open as after the the method is finished it hits the <span id=codefont><class>Console</class>.ReadLine()</span> in the <span id=codefont>Main()</span> method as that is where the method is called from.</pre>
+<pre id=background>
+
+...
+inputPath = <class>Console</class>.ReadLine();
+
+<mark><keyword>foreach</class> (<keyword>var</keyword> path <keyword>in</keyword> <class>Directory</class>.GetFiles(inputPath, <string>"*.*"</string>, <enum>SearchOption</enum>.AllDirectories))
+{
+  musicPath.Add(path);
+}</mark>
+...
+
+</pre>
+<pre>This the most complex bit of code we have seen so far so lets break it down.
+
+First:
+<class>Directory</class><span id=codefont>.GetFiles()</span>
+This a static function of the Directory class that means that we do not need to create an instance of the class to access the method. This method has 3 overloads, in this instance we are using 3 parameters. The folder path, <span id=codefont>inputPath</span>, which is where the method will start the search.
+
+The next argument, <string>"*.*"</string>, is the search pattern, meaning the type of file we are looking for. We are useing the <span id=codefont>*</span> which is called a wild card meaning that the method does not care what the file name or type is it just retrieves it. This feature is also in the windows explorer you can try it for example type <span id=codefont>*.exe</span> somewhere and it will return all files with the extension .exe, It can also be used as <span id=codefont>filename.*</span> where it will return all files with that name regardless of the extension, this version is not used as commonly as most modern file system automatically append .* if it is not specified. We could do something like <string>"*.mp3"</string> however this will only return <span id=codefont>.mp3</span> files and you may have some music files that are <span id=codefont>.mp4</span>, <span id=codefont>.m4a</span>, etc so useing the wildcard for both the file name and extension means that the method will return all files in the directory.
+
+The final argument is an enumerator called <enum>SearchOption</enum> with the value <span id=codefont>AllDirectories</span>, this is the option to search all sub directores or just the given folder ignoring sub directories.
+
+Second:
+The <keyword>foreach</keyword> loop. As <class>Directory</class><span id=codefont>.GetFiles()</span> returns an array we can loop though the results one by one. So every item in the return array is added to the <span id=codefont>musicPath</span> list. Unlike a <keyword>for</keyword> where you have to manually index the array each interaction of the loop a <keyword>foreach</keyword> will automaticaly assign the array value to the <span id=codefont>path</span> variable each iteration fo easy use.
+
+Finally:
+<span id=codefont>musicPath.Add(path)</span>. This is the most simple line, here every iterration of the loop adds the current value stored in the <span id=codefont>path</span> to the <span id=codefont>musicPath</span> list</pre>
+
+<details id=codedetails>
+  <summary id=codesummary>Difference between a <keyword>foreach</keyword> and a <keyword>for</keyword> loop</summary>
+  <pre>A <keyword>for</keyword> says that something should be performed N number of times and it does not have to iterate over a IEnumerable. You can just say to go between 2 numbers adding each inturn. However a <keyword>foreach</keyword> loop goes over each item in an IEnumerable object in turn. Or in other words perform this code on each item in this list/array.</pre>
+</details>
+
+<details id=codedetails>
+  <summary id=codesummary>When to use a <keyword>foreach</keyword> as opposed to a <keyword>for</keyword> loop</summary>
+  <pre>You should use a <keyword>foreach</keyword> loop when you have a list of things that will all need to have the same thing done to them and the index of the item is not important then you should use a <keyword>foreach</keyword> loop, due to the fact that it is safer (cannot try to acces an index outside of the arrays bounds). Otherwise if the index is important, you must skip evey other element, etc you should use a <keyword>for</keyword> loop.</pre>
+</details>
+<details id=codedetails>
+  <summary id=codesummary>Enums</summary>
+  <pre>An <keyword>enum</keyword> or Enumeration type is a special value they allows you to specify a group of named numeric constants.
+
+They can be defined like so:
+<pre id=background>
+<keyword>public enum</keyword> <enum>Foo</enum> {ENUMONE, ENUMTWO, ENUMTHREE}
+</pre>
+</pre>
+This defines a new <keyword>enum</keyword> with three values. By default all <keyword>enum</keyword>s are of type <keyword>int</keyword> however, that can be changed by adding an = operator to one of the arguments. 
+As seen below all values are now if type <keyword>decimal</keyword>:
+<pre id=background>
+<keyword>public enum</keyword> <enum>Foo</enum> {ENUMONE = <interface>0.5</interface>, ENUMTWO, ENUMTHREE}
+</pre>
+
+<keyword>enums</keyword> can be used as follows:
+<pre id=background>
+<keyword>var</keyword> example = <enum>Foo</enum>.EUMONE;
+</pre>
+
+You may also convert an <keyword>enum</keyword> to its base type via the use of an explicit conversion which we will cover at some other time but to convert an enum to its base type you would use:
+<pre id=background>
+<keyword>decimal</keyword> example2 = (<keyword>decimal</keyword>)example;
+</pre>
+</details>
+
+<details id=codedetails>
+  <summary id=codesummary>Method Overloading</summary>
+<pre>Method overloading allows 2 methods to be defined with the same name in the same class however with a different number of arguments or different input types (have a unique method signature). Each of these different methods may have different logic.
+
+Example:
+<pre id=background>
+<keyword>public void</keyword> <enum>Foo</enum>(<keyword>int</keyword> x) {...}
+<keyword>public void</keyword> <enum>Foo</enum>(<keyword>float</keyword> x) {...}
+<keyword>public void</keyword> <enum>Foo</enum>(<keyword>int</keyword> x, <keyword>int</keyword> y) {...}
+</pre>
+
+All of these methods can coexist in the same class as they each have different signatures (the number and types of data passed into a method).
+
+If you tried this:
+<pre id=background>
+<keyword>public void</keyword> <enum>Foo</enum>(<keyword>int</keyword> x) {...}
+<keyword>public void</keyword> <enum>Foo</enum>(<keyword>int</keyword> y) {...}
+</pre>
+This would not work as the argument name does not affect the signature of the method.
+
+Overloaded methods also cannot return different types and the <keyword>params</keyword> keyword do not cout as part of the method signature an example of the <keyword>params</keyword> usage is seen below:
+<pre id=background>
+<keyword>public void</keyword> <enum>Foo</enum>(<keyword>int</keyword> x) {...}
+<keyword>public void</keyword> <enum>Foo</enum>(<keyword>params int</keyword> x) {...}
+</pre>
+
+The above would cause an error.
+
+Method overloading is very useful and you should play around with it when you get a chance.
+</pre>
+</details>
+<hr>
+<pre>
+However here we have a problem, currently the program does not care whether or not it actually returns a music file. So for example it could return a .png as some people store the album art with their music. So next lets eliminate that problem</pre>
+<pre id=background>
+
+...
+<keyword>foreach</keyword> (<keyword>var</keyword> path <keyword>in</keyword> <class>Directory</class>.GetFiles(inputPath, <string>"*.*"</string>, <enum>SearchOption</enum>AllDirectories))
+{
+  <mark><keyword>if</keyword> (<keyword>string</keyword>.IsNullOrEmpty(path))
+    <keyword>continue</keyword>;</mark>
+        
+  <mark><keyword>if</keyword> (path.EndsWith(<string>".mp3"</string>) || path.EndsWith(<string>".mp4"</string>) || path.EndsWith(<string>".m4a"</string>))
+    musicPath.Add(path);</mark>
+}
+...
+
+</pre>
+<pre>
+Firstly we check if the <span id=codefont>path</span> exists, whilst not strictly necessary there are some small cases where a this could happen so this line can be ignored if you wish.
+
+Then we use a method that is inbuilt into the <keyword>string</keyword> type called <span id=codefont>EndsWith()</span>, this is a method that returns a <keyword>bool</keyword>(<keyword>true</keyword>/<keyword>false</keyword>) depending on whether or not the given string ends with the passed value in our case a file extension such as <string>".mp3"</span></pre>
+
+<details id=codedetails>
+<summary id=codesummary>How can you missout the <span id=codefont>{}</span> in a <keyword>if</keyword> statement?</summary>
+  <pre>If you only have one line of code and one branch to an <keyword>if</keyword> C# will allow you to just not use <span id=codefont>{}</span> it also reduces the size of the code on the website so I will use that feature whenever I can. You dont have to it is personal preference as it does not affect performance in any way.</pre>
+</details>
+
+<details id=codedetails>
+<summary id=codesummary>What is the <keyword>var</keyword> data type?</summary>
+  <pre>The <keyword>var</keyword> type is a type that can be assigned any data type. It is effectively short had for a variable decleration. However there can be no ambiguity in the data type it is short hand for so the variable must be assigned value during its creation if useing the <keyword>var</keyword> keyword. In the above code it is assigned a types of <keyword>string</keyword> as <class>Directory</class><span id=codefont>.GetFiles()</span> returns a type of <keyword>string</keyword><span id=codefont>[]</span>.</pre>
+</details>
+
+<details id=codedetails>
+<summary id=codesummary>What does <keyword>continue</keyword> do/mean?</summary>
+  <pre>The <keyword>continue</keyword> is a keyword that is mainly used in loops and it is used to ignore this iteration and move onto the next an example is shown below:</pre>
+<pre id=background>
+
+<keyword>for</keyword> (<keyword>int</keyword> i = <interface>0</interface>; i &#60; <interface>3</interface>; i++)
+{
+  <keyword>if</keyword> (i == <interface>1</interface>)
+    <keyword>continue</keyword>; <comment>// ignore all other code below this and move onto the next iteration of the loop </comment>
+
+  <class>Console</class>.WriteLine(i);
+}
+
+</pre>
+<pre>This will output: 0, 2. As you can see 1 is ignored as all code below <keyword>continue</keyword> was ignored for that iteration of the loop.</pre>
+</details>
+<hr>
+<pre>
+Great so now I have a program that can search through my files, so what?
+
+Well now he have all of the files from the directory stored in an array we can use this to randomly select a song to play from <span id=codefont>musicPath</span> load it into the <span id=codefont>player</span> object, then once it is finished we can select another without haveing to rescan all of the files in the directory improveing efficency.
+
+So lets do that now.</pre>
+<pre id=background>
+
+...
+<keyword>static void</keyword> Main(<keyword>string</keyword>[] args)
+{
+  GetPaths();
+
+  <mark><keyword>foreach</keyword> (<keyword>var</keyword> song <keyword>in</keyword> musicPath)
+  {
+    player.URL = song;
+    player.controls.play();
+    
+    <keyword>while</keyword> (<keyword>true</keyword>)
+    {
+      <keyword>if</keyword> (player.controls.currentPosition == <interface>0</interface>)
+        <keyword>break</keyword>;
+    }
+  }</mark>
+
+  <class>Console</class>.ReadLine();
+}
+...
+
+</pre>
+<pre>Here we use another <keyword>foreach</keyword> to go through each of the songs in turn, the order will depend on the order that the files where found.
+
+When the song is played we then enter a <keyword>while</keyword> loop. This is becasue we do not need to know how long the song actually is so a <keyword>while</keyword> loop will fit our needs perfectly as unlike a <keyword>for</keyword> or <keyword>foreach</keyword> loop it does not need a stopping condition, meaning that it can theoretically run forever. But this is not what we want so we instead check the <span id=codefont>currentPosition</span> of the track and if if is less than 0.5 it has finished as when a song has finished this will return 0, when this value is returned we know that we need to exit the <keyword>while</keyword> loop and move on to the next song so we use the <keyword>break</keyword> keyword, allowing the <keyword>foreach</keyword> loop to move onto the next item in the list.</pre>
+
+<details id=codedetails>
+    <summary id=codesummary>What do <keyword>break</keyword> and <keyword>return</keyword> do?/What is the difference between them?</summary>
+<pre>Whilst they can both be used to exit a piece of code the the amount they exit differs. So a <keyword>break</keyword> statement will exit the current loop and a <keyword>return</keyword> statement will exit the current method or return to the next iteration of the loop.
+    
+Example of a <keyword>break</keyword> and <keyword>return</keyword> in a <keyword>while</keyword> loop:
+<pre id=background>
+
+<keyword>void</keyword> Foo()
+{
+  <keyword>int</keyword> x = <interface>-1</interface>;
+  <keyword>while</keyword>(<keyword>true</keyword>)
+  {
+    <keyword>if</keyword>(x == <interface>0</keyword>)
+      <keyword>break</keyword>;         <comment>// escape while() and jump to execute code after the the loop</comment>
+    <keyword>else if</keyword>(x == <interface>1</keyword>)
+      <keyword>return</keyword>;        <comment>// will end the function Foo() immediately,
+            // no further code inside this method will be executed
+
+    //do stuff eventually setting variable x to either 0 or 1</comment>
+  }
+
+  <comment>//code that will be executed on <keyword>break</keyword> (but not with <keyword>return</keyword>)</comment>
+}
+
+</pre>
+
+<pre>So as you can see the break will exit the <keyword>while</keyword> loop and return will exit the method <span id=codefont>Foo()</span>
+
+They also work the same in a foor loop as can be seen below:</pre>
+
+<pre id=background>
+
+<keyword>void</keyword> Foo()
+{
+  <keyword>for</keyword>(<keyword>int</keyword> i = <interface>0</interface>; i &#60; <interface>10</interface>; i++)
+  {
+    <keyword>if</keyword>(i == <interface>0</interface>)
+      <keyword>break</keyword>;         <comment>// exit the loop and go to the code after the loop</comment>
+    <keyword>else if</keyword>(i == <interface>5</interface>)
+      <keyword>return</keyword>;        <comment>// will end the function Foo() immediately,
+            // no further code inside this method will be executed</comment>
+  }
+
+  <comment>//code that will be executed on <keword>break</keyword></comment>
+}
+
+</pre>
+
+<pre>return can also be uesd to give data out of a function by putting some data after the statement as shown:</pre>
+<pre id=background>
+
+<keyword>int</keyword> Foo()
+{
+  <keyword>return</keyword> <interface>1</interface>; 
+}
+
+</pre>
+</details>
+  
+<details id=codedetails>
+<summary id=codesummary>Why highlight the numbers?</summary>
+<pre>This is to bring to attention the different numerical types that C# has a few different commonly used numeric types and then a few less common. The common types are as follows: <ul><li><keyword>int</keyword></li><li><keyword>float</keyword></li><li><keyword>double</keyword></li><li><keyword>decimal</keyword></li></ul>Bar <keyword>int</keyword> each of the types may hold real numbers (numbers with a decimal part). Each of these is also a signed value meaning it can hold negative numbers.
+
+The unsigned value types are show below in order of acending max value: <ul><li><keyword>byte</keyword></li><li><keyword>ushort</keyword></li><li><keyword>uint</keyword></li><li><keyword>ulong</keyword></li></ul>All of these types can only hold integers (a whole number) so as you can see only integral types can become unsigned. All of these types can become signed values by removeing the preceding u, except in the case of the <keyword>btye</keyword> where we add a preceding s resulting in <keyword>sbyte</keyword>.
+
+When to use each of the different types is mostly personal preference hoewver some differences are that <keyword>int</keyword> cannot divide by 0 and will result in an error where as a <keyword>float</keyword> will instead not produce an error. By default when typeing a number like 0.5 its type will be a double in C# to convert this to a float we must write 0.5f and to convert to an int we can type:</pre>
+<pre id=background>
+<keyword>int</keyword> x = (<keyword>int</keyword>)0.5
+</pre>
+<pre>Resulting in an <keyword>int</keyword> value of 0 as <keyword>decimal</keyword> to intreger conversion truncates the decimal part.
+</pre>
+</details>
+<hr>
+<pre>However, there is currently 2 bugs in the code.
+
+<ol><li>Entering an invalid file path will crash the program</li>
+<li>Only the last song plays</li></ol>
+The first problem we will tackle in the next tutorial. However, the second we will fix now we will fix now and will be explained in a later tutorial as it requires some explanation, we are also fixing the second problem now as it is required for a functioning program, which is something that I would like to have at the end of every tutorialpost.</pre>
+
+<pre id=background>
+
+...
+<keyword>using</keyword> WMPLib;
+<mark><keyword>using</keyword> System.Threading;</mark>
+...
+
+...
+<keyword>while</keyword> (<keyword>true</keyword>)
+{
+  <mark><class>Thread</class>.Sleep(<interface>2000</interface>);</mark>
+
+  <keyword>if</keyword> (player.controls.currentPosition == <interface>0</interface>)
+    <keyword>break</keyword>;
+}
+...
+
+</pre>
+<pre>As said before <class>Thread</class><span id=codefont>.Sleep(<interface>2000</interface>)</span> will not be fully explained here as I would like to take some more time to fully explain threads in the next tutorial. However this pauses the thread that the program is running on for 2000ms (2 seconds), allowing the song to run for some time before checking if it is ended meaning that the program wont think the start of the song is the end.
+
+This does cause the thread to sleep every time the loop is run however in the worst case it willl only take 2 second for the next song to start after the previous is finished.</pre>
+<hr>
+<pre>This is the end of this tutorial. So what have we done this time?
+
+<ul><li>Allowed our program to get all files from a specified location</li><li>Filtered our results to only allow music files to be returned</li><li>Play all songs found in a directory in order</li><li>Next time we will allow the program to chose the song randomly and discuss threading the program as currently no user input can be taken when a song is playing.</li></ul>
+So if you are feel adventurous before next time try to make the program choose the song randomly.
+
+Hope you enjoyed and see you next time.</pre>
+<hr>
+<pre style="text-align:center"><a href="../../../programming/musicplayer.html" style="text-decoration:none;color:white;padding-right:10%;padding-left:10%;">Back To Collection</a> | <a href="../1/mpcm1.html" style="text-decoration:none;color:white;padding-right:10%;padding-left:10%">Previous</a> | <a href="../3/mpcm3.html" style="text-decoration:none;color:white;padding-right:10%;padding-left:10%">Next</a></pre>
+</div>
+</body>
+</html>

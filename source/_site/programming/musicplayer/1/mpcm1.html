@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<link rel="stylesheet" type="text/css" href="../../../stylesheet.css">
+  <link rel="stylesheet" type="text/css" href="../../../stylesheet2.css">
+  <link rel="stylesheet" type="text/css" href="../../../blog.css">
+	<title>A Toothless Blog - Music Player #1</title>
+</head>
+<body class="background">
+<div class="container">
+<ul class="nav">
+  <a href="../../../index.html"><li>Home</li></a>
+  <a href="../../../allposts.html"><li>All Posts</li></a>
+  <li class="submenuhead"><a href="../../../programming.html">Programming</a>
+    <ul class="submenu">
+      <a href="../../../programming/csharptutorials.html"><li>Full C# Tutorial</li></a>
+      <a href="../../../programming/musicplayer.html"><li>Command Line Music Player</li></a>
+    </ul>
+  </li>
+  <a href="../misc.html"><li>Misc</li></a>
+</ul>
+<hr>
+<h1 class="centertext">Make a Simple Command Line Music Player With C# #1</h1>
+<hr>
+<pre>
+Hi, welcome to my first blog post. In this small series we will create a very simple command line music shuffle player using C# and the WMPLib library.
+
+This tutorial assumes basic knowledge of C# (i.e. you know what a variable, function, for loop, etc is and how to use them) and that you have Visual Studio 2017 installed. If you don't have Visual Studio 2017 installed here is the <a href="https://www.visualstudio.com/downloads/" target="_blank" style="color:red;text-decoration:none">Download Page</a>.
+
+Lets get started
+
+First lets make a new console app project in Visual Studio 2017
+</pre>
+<img src="img1.png" alt="Visual Studio 2017 New Project Dialog" class="centerimg">
+<pre>Before we start lets add the reference to the WMP library to the project. this is done by righ clicking on references on the right hand side of the window in the solution explorer and selection "Add Reference...".</pre>
+<img src="img2.png" alt="Add Reference" class="centerimg">
+<pre>Then to add the reference select "COM" and "Type Libraries" then search "Windows Media Player" in the search box select the check box and click ok (I am using version 12.0.15063.0 however all versions should work the same).</pre>
+<img src="img3.png" alt="Refernce Manager" class="centerimg">
+<pre>Now all the setup is done with lets start actually coding.
+
+First things first we need a class to start working with so lets start with a skeleton class including all of the references that we will initially need.</pre>
+<hr>
+<pre id=background>
+
+<mark><keyword>using</keyword> System;
+<keyword>using</keyword> WMPLib;
+
+<keyword>namespace</keyword> MusicPlayer
+{
+    <keyword>static class</keyword> <class>Program</class>
+    {
+        <keyword>static void</keyword> Main(<keyword>string</keyword>[] args)
+        {
+        }
+    }
+}</mark>
+
+</pre>
+<pre>Here we have created a new class called <class>Program</class> and given it a method. The <span id=codefont>Main()</span> method is what the C# run time looks for to start your program so if it is not there then you program will not work.
+
+So now let&apos;s add the ability to play one song that is specified in code to finish up this first part of the tutorial.</pre>
+<details id=codedetails>
+  <summary id=codesummary>Hold on what is with the <mark>highlighting</mark>!?</summary>
+  <p>The highlighted code will be used throughout this tutorial to signify that this is a new area of code you should add.</p>
+</details>
+<details id=codedetails>
+  <summary id=codesummary>What do the different text colours mean?</summary>
+  <p><keyword>Blue</keyword> text are keywords and <class>Green</class> is a class. Other colours will be discussed as they come up.</p>
+</details>
+<hr>
+<pre id=background>
+
+<keyword>static class</keyword> <class>Program</class>
+{
+<mark>
+  <keyword>private static string</keyword> musicPath;
+  <keyword>private static</keyword> <interface>WindowsMediaPlayer</interface> player;</mark>
+
+  <keyword>static void</keyword> Main(<keyword>string</keyword>[] args)
+  {<mark>
+    player = <keyword>new</keyword> <interface>WindowsMediaPlayer</interface>();
+    musicPath = <string>"C:\\music\\song.mp3"</string>;
+    
+    player.URL = musicPath;
+    player.controls.play();
+    <class>Console</class>.ReadLine();</mark>
+  }
+}
+
+</pre>
+<pre>
+So what we have done here is create two variables one to hold the songs path and another to actually play the song.
+
+When the code is run a <keyword>new</keyword> <interface>WindowsMediaPlayer</interface><span id=codefont></span>()</span> object will be created and stored in <span id=codefont>player</span>.
+
+Then the <span id=codefont>musicPath</span> variable is assigned the value you have entered, after that it is then used to set the <span id=codefont>URL</span> variable in <span id=codefont>player</span>.
+
+Once that is done the song is played and the console is kept open by <span id=codefont><class>Console</class>.ReadLine()</span>, if this line was not present immediately after running starting the song the console would close stopping the song.
+
+Next time we will use this method to get user input as to what file path they would like to get music from.
+</pre>
+<details id=codedetails>
+  <summary id = codesummary><span id=normalfont>What does "." mean after a varibale?</span></summary>
+<pre id=normalfont>
+"." is called a Dot Operator and it allows us to acess public data stored within a variable.
+
+The <span id=codefont>player</span> variable is a reference to and object with a variable <span id=codefont>URL</span> in it. To access  this we use the dot operator.
+
+Think of it like a folder with a file within it. So the path would be player\URL
+</pre>
+
+</details>
+<details id=codedetails>
+  <summary id=codesummary>The <interface>WindowsMediaPlayer</interface> thing is not a keyword or a Class so what is it?</summary>
+  <pre id=normalfont>It is an <interface>Interface</interface>. This thing looks like a class and can declare methods however cannot implement them. An example is shown below:
+  </pre>
+<pre id=background>
+
+<keyword>public interface</keyword> <interface>MyInterface</interface>
+{
+    <keyword>void</keyword> Foo();
+}
+
+<keyword>public class</keyword> <class>InterfaceExample</class> : <interface>MyInterface</interface> 
+{
+    <keyword>public void</keyword> Foo()
+    {
+        <comment>//Foo implementation</comment>
+    }
+}
+
+</pre>
+  <pre id=normalfont>As you can see the interface declared a method called <span id=codefont>Foo()</span> however does not implement it, this is the job of the child class, in this case <class>InterfaceExample</class>, to actually implement the method.</pre>
+</details>
+
+<details id=codedetails>
+  <summary id=codesummanry><span id=normalfont>Why are Interfaces useful?</span></summary>
+  <pre id=normalfont>
+  As C# does not allow for multi class inheritance unlike a language like Java.
+  
+  But C# does allow for multiple inheritance from an interface so they can be used to include behavior from multiple classes.
+  The C# MSDN explains this much better than I ever could to here is a link to it: <a href="https://docs.microsoft.com/en-us/dotnet/csharp/programming-guide/interfaces/" target="_blank">Interfaces (C# Programming Guide)</a></pre>
+</details>
+<details id=codedetails>
+  <summary id=codesummary><span id=normalfont>You mentioned inheritance and child classes what is that?</span></summary>
+  <pre id=normalfont>This a feature of object oriented programming and allows you to define a base or parent class for another class to derive from. The base class can define specific behavior and variable for the child that the child will also have access to.
+  
+The child class may also change the behavior of the base class by overriding the bases methods or variables. The child may also implement new methods and variable of its own that it may use however the base class cannot access.
+  
+Child class can also be base classes for another class and multiple classes may derive from the same base.
+  
+There is a good explanation and some good example on the C# MSDN that go into some complex stuff like reflection we may use inheritance in a different tutorial series at some point: <a href="https://docs.microsoft.com/en-us/dotnet/csharp/tutorials/inheritance" target="_blank">Inheritance in C# and .NET</a></pre>
+</details>
+<hr>
+<pre>So that is the end of the first tutorial.
+
+In summary we have learned how to:
+
+<ul><li>Create a <keyword>class</keyword></li><li>Define <span id=codefont>variables</span> within that <keyword>class</class></li><li>Import librarys/dll&apos;s into our C# project</li><li>Play a music file vie the use of WMP library</li>
+</ul>
+Now this code will work if you supply it a valid path to a music file and run the program, it will however be at full volume so before next time try for yourself to work out how to change the volume of the song that is currently playing.
+
+So, I hope you enjoyed this tutorial and see you next time.
+</pre>
+<hr>
+<pre style="text-align:center"><a href="../../../programming/musicplayer.html" style="text-decoration:none;color:white;padding-right:10%;padding-left:10%">Back To Collection</a> | <a href="../../../programming/musicplayer.html" style="text-decoration:none;color:white;padding-right:10%;padding-left:10%">Previous</a> | <a href="../2/mpcm2.html" style="text-decoration:none;color:white;padding-right:10%;padding-left:10%">Next</a></pre>
+</div>
+</body>
+</html>
