@@ -97,7 +97,7 @@ We can also remove the console.readline as the program will never reach there. T
 }</mark>
 </pre>
 <pre>You may now be wondering why we have moved the selection and playing of a song into its own method. Well is so we can add threading to the program.
-Threading is a very powerful tool that can be used to help speed up programs and it can also be used to make a program do multiple things at once. However, this is something that must be used with caution. It can cause many problems with your program if they are not used correctly, as they can cause some problems if not shut down correctly in larger programs. Anyway, threads work by allowing our program to do more than one thing at once. as demonstrated in this diagram:</pre>
+Threading is a very powerful tool that can be used to help speed up programs and it can also be used to make a program do multiple things at once. However, this is something that must be used with caution. It can cause many problems with your program if they are not used correctly, mostly steaming from data shared between threads. Anyway, threads work by allowing our program to do more than one thing at once. as demonstrated in this diagram:</pre>
 <img src="img2.png" alt="Threading Diagram" style="display:block;margin-left:auto;margin-right:auto;">
 <pre>On the left we have a program only running on one thread, with each colored line representing task. As you can see with only 1 thread each task must wait until the previous is finished before starting. This means that it will take longer for the program to complete all 5 tasks, in this example it takes 20 seconds.
 On the right, we see the same program running on 5 threads with each task having its own thread. As you can see all the tasks can start and run simultaneously because each of them is running on its own thread. This means that the shorter tasks don’t have to wait for the longer tasks to complete, meaning that the time taken for the program to finish is only the length of the longest task, In this case 10 seconds.
@@ -115,11 +115,28 @@ This means that if the user of example wanted to change the volume of the song c
 
 <details id=codedetails>
 	<summary id=codesummary>What does <class>Thread</class><span id=codefont>.Sleep()</span> actually do?</summary>
-	<pre>sleepy words</pre>
+<pre>It will cause the current thread to not be scheduled for execution for the ammout of time specified. This means that the procesessor will not execute the thread for the next X milliseconds where X is the ammout of time passed in as the method argument.</pre>
 </details>
 <details id=codedetails>
-	<summary id=codesummary>How do threads work</summary>
-	<pre>possible words</pre>
+	<summary id=codesummary>How do threads/multi-threading work?</summary>
+<pre>With systems that use a single processor multi-threading us mostly implemented via time sliceing, this means that the processor flips between different threads. This is called context switching and mostly happens fast enough for humans to precive that the tasks are running in parallel. This however, is not true multi-threading as the different threads are not running actually running at the same time, but it works and most of the time the user will percive the threads as running symoultaniously.
+On a multiprocessor/multi-core system multiple threads can run in parallel, with every core running a different thread at the same time. On each of the cores in a multi-core processor a single core approach will be taken.
+
+It should be noted that threads differ from a muti-tasking operating system as:
+<ul><li>processees are often independantm where as threads are a subset of a process</li><li>process carry more state information than threads, with multiple threads within a process sharing states as well as memory and other resources</li><li>processes have a seperate address spaces, where as threads share</li><li>process can only interact through system provided communicatin mechanisms</li><li>context switching between threads in the same process as typically faster than context switching between processes</li></ul>
+
+Here are lots of links and further reading:
+<a href="https://stackoverflow.com/questions/8243682/multi-threading-how-do-concurrent-threads-work" target="_blank" style="color:red">Stack Overflow: Multi-threading, how do concurrent threads work?</a>
+<a href="https://en.wikipedia.org/wiki/Thread_(computing)" target="_blank" style="color:red">Wikipedia: Thread (Computing)</a>
+<a href="https://en.wikipedia.org/wiki/Multithreading_(computer_architecture)" target="_blank" style="color:red">Wikipedia: Multithreading (Computer Architecture)</a>
+<a href="https://en.wikipedia.org/wiki/Computer_multitasking" target="_blank" style="color:red">Wikipedia: Computer Multitasking</a>
+<a href="https://en.wikipedia.org/wiki/Preemption_(computing)#Time_slice" target="_blank" style="color:red">Wikipedia: Time Sliceing</a>
+<a href="https://en.wikipedia.org/wiki/Context_switch" target="_blank" style="color:red">Wikipedia: Context Switching</a>
+<a href="https://en.wikipedia.org/wiki/Address_space" target="_blank" style="color:red">Wikipedia: Address Space</a>
+<a href="https://en.wikipedia.org/wiki/Inter-process_communication" target="_blank" style="color:red">Wikipedia: Inter-Process Communication</a>
+<a href="https://en.wikipedia.org/wiki/Multiprocessing" target="_blank" style="color:red">Wikipedia: Multiprocessing (multiprocessor)</a>
+<a href="https://en.wikipedia.org/wiki/Multi-core_processor" target="_blank" style="color:red">Wikipedia: Multi-Core Processor</a>
+</pre>
 </details>
 
 <hr>
