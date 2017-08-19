@@ -1,0 +1,117 @@
+#indent
+{
+  margin-left: 10px;
+}
+
+#background
+{
+  margin: auto;
+  width: max-content;
+  background-color: white;
+  font-family: courier;
+  border: 1px solid gray;
+  border-radius: 10px;
+}
+
+keyword
+{
+  font-family: courier;
+  color: blue;
+  font-weight: bold;
+}
+
+#keyword
+{
+  color: blue;
+  font-weight: bold;
+}
+
+class
+{
+  font-family: courier;
+  color: green;
+}
+
+#class
+{
+  color: green;
+}
+
+interface
+{
+  font-family: courier;
+  color: #66ffff;
+}
+
+#interface
+{
+  color: #66ffff;
+}
+
+#string
+{
+  color:orange;
+}
+
+comment
+{
+  font-family: courier;
+  color:green;
+}
+
+#comment
+{
+  color:green;
+}
+
+#codefont
+{
+  font-family: courier;
+}
+
+#normalfont
+{
+  font-family: proxima-nova
+}
+
+summary:hover
+{
+  font-weight: bold;
+}
+
+#codedetails
+{
+  outline-style: solid;
+  outline-width: 1px;
+  outline-color: gray;
+  background-color: #c9c9c9;
+}
+
+#codesummary
+{
+  outline-style: dashed;
+  outline-width: 0.5px;
+  outline-color: gray;
+}
+
+enum
+{
+  font-family: courier;
+  color: #c542f4;
+}
+
+#enum
+{
+  color: #c542f4;
+}
+
+number
+{
+  font-family: courier;
+  color: #00e1ff;
+}
+
+#number
+{
+  color: #00e1ff;
+}
