@@ -119,11 +119,11 @@ This means that if the user of example wanted to change the volume of the song c
 </details>
 <details id=codedetails>
 	<summary id=codesummary>How do threads/multi-threading work?</summary>
-<pre>With systems that use a single processor multi-threading us mostly implemented via time sliceing, this means that the processor flips between different threads. This is called context switching and mostly happens fast enough for humans to precive that the tasks are running in parallel. This however, is not true multi-threading as the different threads are not running actually running at the same time, but it works and most of the time the user will percive the threads as running symoultaniously.
+<pre>With systems that use a single processor multi-threading us mostly implemented via time slicing, this means that the processor flips between different threads. This is called context switching and mostly happens fast enough for humans to perceive that the tasks are running in parallel. This however, is not true multi-threading as the different threads are not running actually running at the same time, but it works and most of the time the user will percive the threads as running symoultaniously.
 On a multiprocessor/multi-core system multiple threads can run in parallel, with every core running a different thread at the same time. On each of the cores in a multi-core processor a single core approach will be taken.
 
 It should be noted that threads differ from a muti-tasking operating system as:
-<ul><li>processees are often independantm where as threads are a subset of a process</li><li>process carry more state information than threads, with multiple threads within a process sharing states as well as memory and other resources</li><li>processes have a seperate address spaces, where as threads share</li><li>process can only interact through system provided communicatin mechanisms</li><li>context switching between threads in the same process as typically faster than context switching between processes</li></ul>
+<ul><li>processes are often independant where as threads are a subset of a process</li><li>process carry more state information than threads, with multiple threads within a process sharing states as well as memory and other resources</li><li>processes have a seperate address spaces, where as threads share</li><li>process can only interact through system provided communicatin mechanisms</li><li>context switching between threads in the same process as typically faster than context switching between processes</li></ul>
 
 Here are lots of links and further reading:
 <a href="https://stackoverflow.com/questions/8243682/multi-threading-how-do-concurrent-threads-work" target="_blank" style="color:red">Stack Overflow: Multi-threading, how do concurrent threads work?</a>
@@ -141,7 +141,7 @@ Here are lots of links and further reading:
 
 <hr>
 
-<pre>Now that we have talked about what threads are and why we need them lets go an implement them into our program.</pre>
+<pre>Now that we have talked about what threads are and why we need them let's go an implement them into our program.</pre>
 <pre id=background><keyword>using</keyword> WMPLib;
 <mark><keyword>using</keyword> System.Threading;</mark>
 ...
@@ -187,14 +187,14 @@ However, when we use a lambda expression we can pass in argument values as we ca
 	}</mark>
 }
 </pre>
-<pre>All we have done here is remove the outer while loop and reduced the sleep time to in my opinion make the code more readable, you dont have to do this if you dont want to.</pre>
+<pre>All we have done here is remove the outer while loop and reduced the sleep time to (in my opinion) make the code more readable, you dont have to do this if you dont want to.</pre>
 
 <details id=codedetails><summary id=codesummary>Anonymous Methods</summary>
-<pre>In earlier version of C# this did not exist and the only way to make a method/<a href="https://docs.microsoft.com/en-us/dotnet/csharp/language-reference/keywords/delegate" target="_blank">delegate</a> was to use a named method (the normal way of makeing a method/varibale). However in C# 2.0 Amonymous methods were introduced, this allowed method blocks to be defined inline this allowed for things like this:
+<pre>In earlier version of C# this did not exist and the only way to make a method/<a href="https://docs.microsoft.com/en-us/dotnet/csharp/language-reference/keywords/delegate" target="_blank">delegate</a> was to use a named method (the normal way of making a method/varibale). However in C# 2.0 Amonymous methods were introduced, this allowed method blocks to be defined inline this allowed for things like this:
 <pre id=background><keyword>delegate int Foo(<keyword>int x);
 
 Foo f = <keyword>delegate</keyword>(<keyword>int</keyword> y) { <keyword>return</keyword> y * y; };</pre>
-This would then be called by typeing
+This would then be called by typing
 <pre id=background>f(10);</pre>
 This is fine and good but dosent seem very practical so here is a more practical example:
 <pre id=background><keyword>delegate void</keyword> NumberChanger(<keyword>int</keyword> n);
@@ -238,11 +238,11 @@ This is fine and good but dosent seem very practical so here is a more practical
 	nc(2); <comment>//prints 20</comment>
 }
 </pre>
-As you can see this is very useful as it gives you a way to assign your methods to varibales. The nc variabls allows all both of the names methods to be assigned to it as when declared it requires a method with a signature of int. As both of the named methods have that signarute they can both be assigned. This is a very powerful tool especial then used with somethign like events, here is a link to TutorialsPoint on events: <a href="https://www.tutorialspoint.com/csharp/csharp_events.htm" target="_blank">C# - Events</a>
+As you can see this is very useful as it gives you a way to assign your methods to variables. The <span id=codefont>nc</span> variable allows both of the named methods to be assigned to it as when declared it requires a method with a signature of <keyword>int</keyword>. As both of the named methods have that signarute they can both be assigned. This is a very powerful tool especial then used with something like events, here is a link to TutorialsPoint on events: <a href="https://www.tutorialspoint.com/csharp/csharp_events.htm" target="_blank">C# - Events</a>
 
-Makeing an anonymous delegate can also reduce codeing overhead as you can just instantiate a delegate as apposed to creating a seperate method for something that may only take one or two lines, an example of this can be seen on the MSDN linked below.
+Makeing an anonymous delegate can also reduce coding overhead as you can just instantiate a delegate as apposed to creating a seperate method for something that may only take one or two lines, an example of this can be seen on the MSDN linked below.
 
-For more information on ananymous methods see the MSDN here: <a href="https://docs.microsoft.com/en-us/dotnet/csharp/programming-guide/statements-expressions-operators/anonymous-methods" target="_blank">MSDN: Anonymouse Methods (C# Programming Guide)</a>
+For more information on anonymous methods see the MSDN here: <a href="https://docs.microsoft.com/en-us/dotnet/csharp/programming-guide/statements-expressions-operators/anonymous-methods" target="_blank">MSDN: Anonymouse Methods (C# Programming Guide)</a>
 </pre>
 </details>
 <details id=codedetails><summary id=codesummary>More on Lambda Expressions</summary>
@@ -268,7 +268,7 @@ Fore more information on Lambdas see the MSDN here: <a href="https://docs.micros
 
 	<mark><class>Console</class>.ReadLine();</mark>
 }</pre>
-<pre>Now that we have talked a lot about threads and lambda expressions you have probly had quite enough of my ramblings so we will end this tutorial here. Next time we will add the user control to the program but if you are feeling adventures you could go ahead and add it yourself then compare my implementation to yours, and try to understand where the differences came from.</pre>
+<pre>Now that we have talked a lot about threads and lambda expressions you have probly had quite enough of my ramblings so we will end this tutorial here. Next time we will add the user control to the program but if you are feeling adventurous you could go ahead and add it yourself then compare my implementation to yours, and try to understand where the differences came from.</pre>
 <hr>
 <pre>Anyway, hope you enjoyed this 3rd installment of the tutorial and hope to see you next time.</pre>
 <hr>
