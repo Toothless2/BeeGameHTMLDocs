@@ -6,7 +6,7 @@
   <link rel="stylesheet" type="text/css" href="../../../stylesheet2.css">
   <link rel="stylesheet" type="text/css" href="../../../blog.css">
   <link rel="shortcut icon" href="../../../toothless profile.png" type="image/x-icon">
-	<title>A Toothless Blog - Music Player #1</title>
+	<title>A Toothless Blog - C# Tutorial - Introduction - 2</title>
 </head>
 <body class="background">
 <div class="container">
@@ -22,10 +22,196 @@
   <a href="../misc.html"><li>Misc</li></a>
 </ul>
 <hr>
-<h1 class="centertext">C# Programming Tutorial: Introduction - #2 - Varibales and Arithmetic</h1>
+<h1 class="centertext">C# Programming Tutorial: Introduction - #2 - Variables, Arithmetic Operators, and Keywords</h1>
 <hr>
+<pre>Welcome back to the second edition of my C# programming tutorials. This time we are going to look at variables, arithmetic operators, and keywords to build a simple Fahrenheit to Celsius convertor using the formula <span id=codefont>&deg;C = (5/9)(&deg;F – 32)</span> to print a conversion table to the console, so let’s get started.</pre>
 <hr>
-<pre style="text-align:center"><a href="../../../programming/csharptutorials.html" style="text-decoration:none;color:white;padding-right:10%;padding-left:10%">Back To Collection</a> | <a href="../../../programming/csharptutorials.html" style="text-decoration:none;color:white;padding-right:10%;padding-left:10%">Previous</a> | <a href="../2/csharpintro2.html" style="text-decoration:none;color:white;padding-right:10%;padding-left:10%">Next</a></pre>
+<pre>The program itself still contains the <span id=codefont>Main()</span> method, as you would expect of you remember last time, however it no longer prints out <string>“hello, world!”</string>, this new program may be longer however will nicely introduce the concepts that I would like to discuss in this tutorial. This program also includes some surprises that were not mentioned in the title these are <b><comment>comments</comment></b>, <b>loops</b>, and <b>formatted output</b> (you may have heard this being called <b>“String Interpolation”</b>)</pre>
+<pre id=background> 
+
+<keyword>using</keyword> System;
+
+<keyword>class</keyword> <class>SecondProgram</class>
+{
+  <comment>/* print Fahrenheit to Celsius table between lower and upper
+     incrementing in steps given by step variable */</comment>
+  <keyword>public static void</keyword> Main()
+  {
+    <keyword>int</keyword> fahr, cel;
+
+    <keyword>int</keyword> lower = <interface>0</interface>; <comment>//lower limit of temp table</comment>
+    <keyword>int</keyword> upper = <interface>300</interface>;  <comment>//uppr limit of temp table</comment>
+    <comment>//step size</comment>
+    <keyword>int</keyword> step = <interface>20</interface>;
+
+    fahr = lower;
+
+    <keyword>while</keyword>(fahr &#60;= upper)
+    {
+      cel = <interface>5</interface> * (fahr - <interface>32</interface>) / <interface>9</interface>;
+      Console.WriteLine(<string>$"</string>{fahr}<string> | </string>{cel}<string>"</string>);
+      fahr += step;
+    }
+  }
+}
+
+</pre>
+<pre>The two lines:</pre>
+<pre id=background><comment>/* print Fahrenheit to Celsius table between lower and upper
+     incrementing in steps given by step variable */</comment></pre>
+<pre>Are a comment. This is code that the C# compiler and IDE mostly just ignore and can be used to explain what different parts of a program can do with a small explanation. There are two examples of comments in this program; the multiline comment and the single line comment. These two types can be identified by the characters that start them, and in the case of the multiline comment that end them. So, comments starting with <comment>/*</comment> and ending with <comment>*/</comment> are multiline comments this style of comment will cause all the text in-between the opening and closing symbols to be a comment, this style of comment can occur without affecting the code in any position where space or tab character could also be placed. The second type of comment we will talk about is the single line comment, this starts with <comment>//</comment> and causes everything on the line that it is defined to become a comment beyond the <comment>//</comment>. To end this style of comment all you have to do is move to the line below. Both of these types of comments are fine to use wherever you feel like, so add them whenever and wherever you feel necessary as they can only help you.</pre>
+<hr>
+<pre>Now moving on let’s talk about the variables and the keywords relating to them. In C# all variables must be declared somewhere before they are used, most declarations occur at the top of a class or at the top of a method, except in some special circumstances that we will cover later, due to the way C# is compiled and run this is not necessary and you can put your declarations at the bottom of a method or class however conventions dictate that they go at the top, so to save the embarrassment of <a href="https://codereview.stackexchange.com/" target="_blank" style="color:red">Code Review Stack Exchange</a> laughing at you for putting your declarations at the bottom just put them at the top.
+Now a variable declaration is always constructed of two components and the third is optional and can be done later, again except in a special circumstance that we will again cover later. The two required features of a variable declaration are, the data type keyword and the variable name or list of variable names separated by commas. The third optional part is giving the variable a value. The different methods of defining variables are outlined below.</pre>
+
+<pre id=background>
+
+<keyword>int</keyword> foo, bar;
+<keyword>int</keyword> foo = <iterface>1</interface>, bar = <iterface>2</interface>;
+<keyword>int</keyword> foo;
+<keyword>int</keyword> foo = <iterface>1</interface>;
+
+</pre>
+<pre>First, we define the type of data the variable is going to hold, this word before the variable is called a keyword. That means the C# compiler treats this word with a special meaning. In this example, we are setting our variables to be of type <keyword>int</keyword>, and <keyword>int</keyword> is short for integer or whole number. This is called a basic data type, the other basic types are:</pre>
+
+<pre><ul><li><keyword>char</keyword> - a single character</li><li><keyword>short</keyword> - A short <keyword>int</keyword></li><li><keyword>long</keyword> - Long <keyword>int</keyword></li><li><keyword>float</keyword> - floatig point number (A decimal number)</li><li><keyword>double</keyword> - Double precision <keyword>float</keyword></li></ul></pre>
+
+<pre>We will talk about the sizes of each of these different types later as mentioned in the previous tutorial this first section of to get you to start coding and not bogged down in the details, Classes can also be used as data types however this is something that we will talk about when we discus classes. At the bottom of this section is a list of all of the keywords that can be used as variable types.
+All the data type keywords can also be preceded by the keywords <keyword>public</keyword>, <keyword>private</keyword>, and <keyword>static</keyword></pre>
+
+<pre><ul><li><keyword>public</keyword> - Can be Acessed from another class</li><li><keyword>private</keyword> - Can only be accessed from within the class or method it is defined within</li><li><keyword>static</keyword> - Means the variable will not be instanced (we will talk about instanceing later when we come to classes)</li></ul></pre>
+
+<pre>Now we define the variable name, as you can probably tell you can use any name for a variable with any character, the only caveats to this are that they may not start with a number, they cannot contain semicolons, colons, open/closing brackets, slashes, any arithmetic operator, and may not be a keyword (this last one is most of the time however it is frowned upon to use this feature). The name must also be unique from within the same scope, within the same class and/or method depending on where it is defined.
+The variable can also optionally be given a value when defined this value must be of the same type, or can be cast to the same type, and the type the variable is defined as e.g. if you make a <keyword>string</keyword> variable you can’t assign it an <keyword>int</keyword> value because that would be silly.</pre>
+
+<details id=codedetails>
+  <summary id=codesummary>List of data type keywords</summary>
+  <pre><ul><li><keyword>bool</keyword> - A <keyword>true</keyword> or <keyword>false</keyword> value</li><li><keyword>byte</keyword> - A single byte of data</li><li><keyword>int</keyword> - Can only store whole numbers</li><li><keyword>short</keyword> - A short <keyword>int</keyword></li><li><keyword>long</keyword> - A long <keyword>int</keyword></li><li><keyword>float</keyword> - Can store a decimal number</li><li><keyword>double</keyword> - Can store double the max value of a <keyword>float</keyword></li><li><keyword>decimal</keyword> - Used in finacial calculations, stored and treaded differently than float and double so has a larger processing overhead</li><li><keyword>sbyte</keyword> - Can store negative bytes</li><li><keyword>uint</keyword> - A positive value only <keyword>int</keyword></li><li><keyword>ulong</keyword> - A positive value only long <keyword>int</keyword></li><li><keyword>char</keyword> - A single character</li><li><keyword>string</keyword> - A sequence of characters</li></ul></pre>
+</details>
+
+<hr>
+
+<pre>Now let’s get into the actual computation of the program since we have finished defining our variables. As each line of the output table is computed in the same way we can use a loop.
+A loop is a block of code that is executed until the condition that sustains it becomes <keyword>false</keyword>. In this condition, we are using a <keyword>while</keyword> loop a while loops condition is defined in between the brackets after the <keyword>while</keyword> keyword. Our while loop:</pre>
+
+<pre id=background><keyword>while</keyword>(fahr &#60;=upper)</pre>
+
+<pre>Will execute until the <span id=codefont>fahr</span> variable is greater than or equal to the uppr variable. The <keyword>while</keyword> loop executes by checking the condition on the brackets, if the result of the condition is true then it will execute the code block within its <span id=codefont>{}</span>, it will then return to the top check the condition and repeat until the condition is <keyword>false</keyword>, this does mean however that the while loop as a chance of not executing even once if the <span id=codefont>fahr</span> is <span id=codefont>&#62;= upper</span> on the first run, this can be a problem in some situations so the do while loop also exists and we will discuss that later to. A body, or code block, of a while loop can be one or more statements as long as it is enclosed within <span id=codefont>{}</span>.
+Now the meat of the program is executed within the <keyword>while</keyword> loop, first the Celsius conversion takes place. This conversion is done all in one statement as shown here:</pre>
+
+<pre id=background>cel = <interface>5</interface> * (fahr - <interface>32</interface>) / <interface>9</interface>;</pre>
+
+<pre>The reason for multiplying be <interface>5</interface> then dividing by <interface>9</interface> is because this is all <keyword>int</keyword> maths and link many other programming languages C# truncates the decimal part of an <keyword>int</keyword> division so <interface>5</interface>/<interface>9</interface> with <keyword>int</keyword> maths would result in <interface>0</interface> and <interface>0</interface> times anything is just <interface>0</interface> so to keep things working we more the order around to give us the current value. Of course, you can convert all of this to <keyword>float</keyword> maths for greater precision if you want. Here the value of <span id=codefont>fahr</span> is not changed as no = sign is used on the <span id=codefont>fahr</span> variable so its stored value does not change its current value in the equation however does. This is much like how you would use variables in algebra. A full list of arithmetic operators can be found at the bottom of this section.</pre>
+
+<details id=codedetails>
+  <summary id=codesummary>List of Arithmetic Operators</summary>
+<pre><ul><li>= - Sets the expression on the left equal to the expression on the left</li><li>+ - Adds the expression on the left to the expression of the right</li><li>- - Subtracts the expression on the the right from the expression on the left</li><li>/ - Divides the expression on the left by the expression on the right</li><li>* - Multiplys the expression on the left by the expression the right</li><li>% - Returns the remander from divideing the expression on the left by the expression on the left</li><li>&#60;&#60; - Bitshift the expression on the right by the expression on the left to the left</li><li>&#62;&#62; - Bitshift the expression on the right by the expression on the left to the right</li></ul></pre>
+</details>
+
+<hr>
+
+<pre>Next, we print the value of the conversion and the current <span id=codefont>fahr</span> value to the console here</pre>
+
+<pre id=background><class>Console</class>.WriteLine(<string>$”</string>{fahr}<string> | </string>{cel}<string>”</string>);</pre>
+
+<pre>We have already seen <class>Console</class><span id=codefont>.WriteLine()</span> in the previous tutorial so we are not going to go over that gain but the method by which we are putting the variable into the <keyword>string</keyword> we are. This is called <keyword>string</keyword> interpolation and is a more readable version of what you will see in most tutorials about this subject, as in other programming languages and most other tutorials will have you type:</pre>
+
+<pre id=background><class>Console</class>.WriteLine(fahr + <string>“ | “</string> + cel);</pre>
+
+<pre>This method of adding variables into a string is still available in C# however introduced in C# 6.0 was <keyword>string</keyword> interpolation. This is the method we are using in our program; to use it you must place a <string>$</string> before the opening <string>“</string> of the <keyword>string</keyword> then within the <keyword>string</keyword> you can put code contained in <span id=codefont>{}</span> that will return something and its value will be converted into a <keyword>string</keyword> with the returned value replaceing whatever is within the <span id=codefont>{}</span>. This allows us to very simply output data as text in a very easy to understand and concise manor.</pre>
+
+<hr>
+
+<pre>Finally, in the <keyword>while</keyword> loop we increment the <span id=codefont>fahr</span> variable by saying:</pre>
+
+<pre id=background>fahr += step;</pre>
+
+<pre>This again is different to how you will see many beginner tutorials tell you to increment a variable as they will say type:</pre>
+
+<pre id=background>fahr = fahr + step;</pre>
+
+<pre>However my method means the same thing, you type less, and it is a useful feature of C# so no reason to hide it from you. All this line does is take the current value of <span id=codefont>fahr</span> adds the step value then set that to be the new value of the <span id=codefont>fahr</span> variable.
+After the incrementing the <keyword>while</keyword> loop runs gain until the condition is <keyword>false</keyword>.</pre>
+
+<hr>
+
+<pre>Now that is all we have for today I will leave you with some exercises to attempt. The answers will be in the dropdown. As always, I hope you enjoyed this tutorial and hope to see you next time.</pre>
+
+<details id=codedetails>
+  <summary id=codesummary><b>Exercise 1</b>: Modify the Celcius to Fahrenheit convertor to use floating point maths</summary>
+<pre>This task is very simple all you need to do is change the <keyword>int</keyword> keyword to a <keyword>float</keyword> keyword</pre>
+<pre id=background>
+
+...
+<keyword>public static void</keyword> Main()
+  {
+    <mark><keyword>float</keyword></mark> fahr, cel;
+
+    <mark><keyword>float</keyword></mark> lower = <interface>0</interface>;
+    <mark><keyword>float</keyword></mark> upper = <interface>300</interface>;
+    <mark><keyword>float</keyword></mark> step = <interface>20</interface>;
+
+    fahr = lower;
+
+...
+
+</pre>
+</details>
+
+<details id=codedetails>
+  <summary id=codesummary><b>Exercise 2</b>: Modify the Celcius to Fahrenheit convertor to print a table heading above the conversion table</summary>
+<pre>Add this line above the <keyword>while</keyword> loop and it will print the table headings</pre>
+<pre id=background>
+
+...
+fahr = lower;
+
+<mark><class>Console</class>.WriteLine("Fahrenheit | Celcius")</mark>
+
+<keyword>while</keyword>(fahr &#60;= upper)
+{
+  cel = <interface>5</interface> * (fahr - <interface>32</interface>) / <interface>9</interface>;
+  Console.WriteLine(<string>$"</string>{fahr}<string> | </string>{cel}<string>"</string>);
+  fahr += step;
+}
+...
+
+</pre>
+</details>
+
+<details id=codedetails>
+  <summary id=codesummary><b>Exercise 3</b>: Create the corrisponding Fahrenheit to Celcius convertor</summary>
+<pre>Rewrite the same program with the equation re-arranged like this: <span id=codefont>&deg;F = ((&deg;C * 9) / 5) + 32</span></pre>
+<pre id=background> 
+
+<keyword>using</keyword> System;
+
+<keyword>class</keyword> <class>Exercise3</class>
+{
+  <keyword>public static void</keyword> Main()
+  {
+    <keyword>int</keyword> fahr, cel;
+
+    <keyword>int</keyword> lower = <interface>0</interface>;
+    <keyword>int</keyword> upper = <interface>300</interface>;
+    <keyword>int</keyword> step = <interface>20</interface>;
+
+    cel = lower;
+
+    <keyword>while</keyword>(cel &#60;= upper)
+    {
+      fahr = ((cel * <interface>9</interface>) / <interface>5</interface>) + <interface>32</interface>;
+      Console.WriteLine(<string>$"</string>{cel}<string> | </string>{fahr}<string>"</string>);
+      cel += step;
+    }
+  }
+}
+
+</pre>
+</details>
+
+<hr>
+<pre style="text-align:center"><a href="../../../programming/csharptutorials.html" style="text-decoration:none;color:white;padding-right:10%;padding-left:10%">Back To Collection</a> | <a href="../1/csharpintro1.html" style="text-decoration:none;color:white;padding-right:10%;padding-left:10%">Previous</a> | <a href="#" style="text-decoration:none;color:white;padding-right:10%;padding-left:10%">Next</a></pre>
 </div>
 </body>
 </html>
