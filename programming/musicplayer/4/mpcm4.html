@@ -1,0 +1,388 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<link rel="stylesheet" type="text/css" href="../../../stylesheet.css">
+  <link rel="stylesheet" type="text/css" href="../../../stylesheet2.css">
+  <link rel="stylesheet" type="text/css" href="../../../blog.css">
+  <link rel="shortcut icon" href="../../../toothless profile.png" type="image/x-icon">
+	<title>A Toothless Blog - Music Player #3</title>
+</head>
+<body class="background">
+<div class="container">
+<ul class="nav">
+  <a href="../../../index.html"><li>Home</li></a>
+  <a href="../../../allposts.html"><li>All Posts</li></a>
+  <li class="submenuhead"><a href="../../../programming.html">Programming</a>
+    <ul class="submenu">
+      <a href="../../../programming/csharptutorials.html"><li>Full C# Tutorial</li></a>
+      <a href="../../../programming/musicplayer.html"><li>Command Line Music Player</li></a>
+    </ul>
+  </li>
+  <a href="../misc.html"><li>Misc</li></a>
+</ul>
+<hr>
+<h1 class="centertext">Make a Simple Command Line Music Player With C# #4</h1>
+<hr>
+<pre>Hello and welcome to the 4th and final part if this tutorial. This time, as discussed last time we are going to add user input. We are also going to add the ability for the user to remove file paths from the player. Why? Well you may have for example podcasts in your music folder; however you may not want to use them when shuffling your music, so this feature will allow the optional exclusion of folders and files.</pre>
+<hr>
+<pre>Let’s begin with the folder exclusion as it is very simple and is shown below:</pre>
+<pre id=background>
+
+...
+<keyword>static void</keyword> Main(<keyword>string</keyword>[] args)
+{
+	GetPaths();
+	<mark>RemovePaths();</mark>
+	...
+}
+
+<mark><keyword>private static void</keyword> RemovePaths()
+{
+	<class>Console</class>.WriteLine(<string>"Enter Paths to exclude (type \"done\" when finished):"</string>);</mark> 
+ <mark>
+	
+	<class>List</class>&#60;<keyword>string</keyword>&#62; excluded = <keyword>new</keyword> <class>List</class>&#60;<keyword>string</keyword>&#62;();
+
+	<keyword>while</keyword> (<keyword>true</keyword>)
+	{
+		<keyword>string</keyword> input = <class>Console</class>.ReadLine();
+			
+		<keyword>if</keyword> (input == <string>"done"</string>)
+			<keyword>break</keyword>;
+		
+		excluded.Add(input);
+	}
+
+	<keyword>for</keyword> (<keyword>int</keyword> i = <interface>0</interface>; i &#60; excluded.Count; i++)
+	{
+		<keyword>for</keyword> (<keyword>int</keyword> j = musicPath.Count - <interface>1</interface>; j &#62;= <interface>0</interface>; j--)
+		{
+			<keyword>if</keyword> (musicPath[j].Contains(excluded[i]))
+				musicPath.RemoveAt(j);
+		}
+	}
+}</mark>
+
+</pre>
+<pre>Firstly we have also added a call to this method after the <span id=codefont>GetPaths()</span> method has been called, so there will be paths to remove.
+
+This will remove all the paths that contain the words input into the excluded list. This is however, not actually very good code. Why? Well what if the user types in <string>“Done”</string>? That won’t work because that is not exactly equal to <string>“done”</string>. You may not see this as a problem, sometimes it may also be desired, but a user may find this unintuative so I want to change it.
+
+Also, what if we don’t actually know how strings work? Why? Because they are hard. They contain culture specific information that can sometimes affect the way comparisons are done (<a href="https://youtu.be/l3nPJ-yK-LU?t=0" target="
+_blank" style="color:red">Why we dont know how strings work</a>). Eg Turky has no uppercase I... for some reason.
+
+We can also condense this for loop down using the C# Linqs libaray so let’s to that:
+</pre>
+<pre id=background>
+
+...
+<mark><keyword>using</keyword> System.Linq;</mark>
+...
+
+<keyword>private static void</keyword> RemovePaths()
+{
+	<class>Console</class>.WriteLine(<string>"Enter Paths to exclude (type \"done\" when finished):"</string>);
+	
+	<class>List</class>&#60;<keyword>string</keyword>&#62; excluded = <keyword>new</keyword> <class>List</class>&#60;<keyword>string</keyword>&#62;();
+	
+	<mark><keyword>while</keyword> (<keyword>true</keyword>)
+	{
+		<keyword>var</keyword> input = <class>Console</class>.ReadLine();
+	
+		<keyword>if</keyword> (input.Equals(<string>"done"</string>, <enum>StringComparison</enum>.InvariantCultureIgnoreCase))</mark>    <mark>
+			<keyword>break</keyword>;
+	}
+
+	musicPath.RemoveAll(s => excluded.Any(e => s.Contains(e)));</mark>
+}
+
+</pre>
+<pre>Well that is a lot smaller now. but what does it do?
+
+We have changed the if so now we use the <span id=codefont>Equals()</span> method which is a static method built into the string type. We then pass in the <string>“done”</string> string and after an enum. This enum means that the comparison will be done ignoring the current “culture” (where the code is being run and it&apos;s respective language rules) also ignoring capitalization.
+
+Next, we have the magic Linqs method:</pre>
+<pre id=background>
+ musicPath.RemoveAll(s => excluded.Any(e => s.Contains(e))); 
+</pre>
+<pre>Firstly I will say I am not an expert with Linqs, so please don’t inundate me with questions about it.
+
+Now with that out of the way:</pre>
+<pre id=background>musicPath.RemoveAll()</pre>
+<pre>This method takes in a List&#60;T&#62; goes that it and removes everything that matched an item in the list. The "<span id=codefont>s</span>" variable that is declared is then set to each item in the musicpath list in turn. Then the "<span id=codefont>e</span>" variable is set to values of the excluded list, and checked against the current value of the "<span id=codefont>s</span>" variable and if "<span id=codefont>e</span>" is contained within "<span id=codefont>s</span>" it is added to a new list. "<span id=codefont>e</span>" is cycled through all the values excluded before "<span id=codefont>s</span>" is then incremented. Effectively we have written the nested for loop we had before in one line. Not only does it make you look smart, but it also makes you feel good, doesn’t it? Sort of knowing how it works <img src="img5.png" style="width:2%;">. This method also doesn’t force the user to type in the whole path just the folder and everything past that folder is excluded.
+</pre>
+
+<details id=codedetails>
+	<summary id=codesummary>Why use <span id=codefont>.Contains()</span> for path removal but not <string>"done"</string></summary>
+	<pre>This is because a folder name could contain the word "done". So this is just to prevent a small edge case possibility of someone not being able to remove a file path with the word "done" in it.</pre>
+</details>
+<hr>
+<pre>Now we have done that, let’s also improve our path addition code as currently it will give an error if we input an invalid file path</pre>
+<img src="gif1.gif" width=300px height=300px style="display:block;margin-left:auto;margin-right:auto;">
+<pre>So let&apos;s fix that</pre>
+<pre id=background>
+
+...
+<keyword>string</keyword> inputPath = "";
+
+<mark><keyword>do</keyword>
+{
+	<class>Console</class>.WriteLine(<string>"Please input a valid file path: "</string>);</mark>  <mark>
+	inputPath = <class>Console</class>.ReadLine();
+} <keyword>while</keyword> (!<class>Directory</class>.Exists(inputPath));</mark>
+
+<keyword>foreach</keyword> (<keyword>var</keyword> path <keyword>in</keyword> <class>Directory</class>.GetFiles(inputPath, <string>"*.*"</string>, <enum>SearchOption</enum>.AllDirectories))
+{
+...
+
+</pre>
+<pre>Now this will allow the user to make a mistake when inputting the path without the program crashing \o/. The first time the loop is run the condition is not checked so the WriteLine and the input will be taken then it will be checked. If the file path does not exist then it will loop until the user input a valid file path.</pre>
+<hr>
+<pre>Now let’s add the method to allow for user control:</pre>
+<pre id=background>
+
+<keyword>static void</keyword> Main(<keyword>string</keyword>[] args)
+{
+	...
+	musicThread.Start();
+	<mark>GetUserInput();</mark>
+	...
+}
+
+<mark><keyword>private static void</keyword> GetUserInput()
+{
+	<keyword>while</keyword> (<keyword>true</keyword>)
+	{
+		<keyword>var</keyword> input = <class>Console</class>.ReadLine();
+	}
+}</mark>
+
+</pre>
+<pre>We have created a new method that contains an infinite loop to get the use input. The loop will pause whilst it waits for the input and will not affect the playing of songs as discussed previously (<a href="../3/mpcm3.html" target="_blank" style="color:red">Previous tutorial if you need a refresher</a>). We are also then calling the method after the thread that plays the music is started. Next lets add the volume control:</pre>
+<pre id=background>
+
+...
+<keyword>private static</keyword> <class>Thread</class> musicThread;
+<mark><keyword>private static int</keyword> volume = <interface>2</interface>;</mark>
+...
+
+<keyword>private static void</keyword> GetUserInput()
+{
+	<keyword>while</keyword> (<keyword>true</keyword>)
+	{
+		<keyword>var</keyword> input = <class>Console</class>.ReadLine();
+		
+		<mark><keyword>if</keyword> (<keyword>int</keyword>.TryParse(input, <keyword>out var</keyword> vol) && vol &#62;= <interface>0</interface> && vol &#60;= <interface>10</interface>)</mark>    <mark>
+			player.settings.volume = volume = vol;</mark>
+	}
+}
+
+<keyword>private static void</keyword> PlaySong()
+{
+	player.URL = musicPath[RandomSong()];
+	<mark>player.settings.volume = volume;</mark>
+	player.controls.play();
+
+	<keyword>while</keyword> (<keyword>true</keyword>)
+	{
+		<keyword>if</keyword> (player.controls.currentPosition == <interface>0</interface>)
+		{
+			player.URL = musicPath[RandomSong()];
+			<mark>player.settings.volume = volume;</mark>
+			player.controls.play();
+			...
+}
+
+</pre>
+<pre>The <span id=codefont>volume</span> variable will only take a type of int so we first check that the user has input a number, as <span id=codefont><keyword>int</keyword>.TryParse()</span> will return <keyword>false</keyword> if it is not a number or not a number that can be implicitly cast to an <keyword>int</keyword>, we also initialize the <span id=codefont>volume</span> variable with a value of <interface>2</interface> but you can change this if you want. It is then checked that is not below <interfae>0</interfae> or above <interface>10</interface> as having a negative volume would not make sense and above <interface>10</interface> could hurt someone <img src="img6.png" style="width:2%;">.
+
+In the <keyword>if</keyword> statement the <span id=codefont>player.settings.volume</span> is set to the <span id=codefont>volume</span> variable which is set to the <span id=codefont>vol</span> variable. We set the <span id=codefont>volume</span> variable so that the volume changes will stay when the next song is played. This is also why we apply the volume each time the song is changed. This is also why we have changed the <span id=codefont>PlaySong()</span> method slightly.
+
+Now here’s a few more controls to finishup:
+</pre>
+<pre id=background>
+
+...
+<keyword>private static int</keyword> volume = <interface>2</interface>;
+<mark><keyword>private static double</keyword> pausePosition</mark>;
+...
+
+<keyword>private static void</keyword> GetUserInput()
+{
+	<keyword>while</keyword> (<keyword>true</keyword>)
+	{
+		<keyword>var</keyword> input = <class>Console</class>.ReadLine();
+
+		<keyword>if</keyword> (<keyword>int</keyword>.TryParse(input, <keyword>out var</keyword> vol) && vol &#62;= <interface>0</interface> && vol &#60;= <interface>10</interface>)
+		{
+			player.settings.volume = volume = vol;
+		}
+		<mark><keyword>else if</keyword> (input.Equals(<string>"skip"</string>, <enum>StringComparison</enum>.InvariantCultureIgnoreCase))
+		{
+			musicThread.Abort();
+			musicThread = <keyword>new</keyword> <class>Thread</class>(() => PlaySong());
+			musicThread.Start();
+		}
+		<keyword>else if</keyword> (input.Equals(<string>"mute"</string>, <enum>StringComparison</enum>.InvariantCultureIgnoreCase))
+		{
+			player.settings.mute = !player.settings.mute;
+		}
+		<keyword>else if</keyword> (input.Equals(<string>"unmute"</string>, <enum>StringComparison</enum>.InvariantCultureIgnoreCase))
+		{
+			player.settings.mute = <keyword>false</keyword>;
+		}
+		<keyword>else if</keyword> (input.Equals(<string>"pause"</string>, <enum>StringComparison</enum>.InvariantCultureIgnoreCase))
+		{
+			pausePosition = player.controls.currentPosition;
+			player.controls.pause();
+		}
+		<keyword>else if</keyword> (input.Equals(<string>"play"</string>, <enum>StringComparison</enum>.InvariantCultureIgnoreCase))
+		{
+			player.controls.currentPosition = pausePosition;
+			player.controls.play();
+		}
+		<keyword>else if</keyword> (input.Equals(<string>"exit"</string>, <enum>StringComparison</enum>.InvariantCultureIgnoreCase))
+		{
+			musicThread.Abort();
+			<class>Environment</class>.Exit(<interface>0</interface>);
+		}
+		<keyword>else</keyword>
+		{
+			<class>Console</class>.WriteLine(<string>$"Invalid Input: {</string>input<string>}"</string>);
+			<class>Console</class>.WriteLine(<string>"Please Try Again"</string>);
+		}</mark>
+	}
+}
+
+</pre>
+<pre>Now this should add the controls that most users will want to have in their music shuffling programs. I will not go over all of them as some of this can be left as an exercise for the student so we will only go over parts of this. Firstly this:</pre>
+<pre id=background>pausePosition = player.controls.currentPosition</pre>
+<pre>The <span id=codefont>player.controls.pause()</span> method is supposed to save the current play position of the track however, I have found that it will sometimes not and the song will change upon unpausing the song, so this is added to prevent that.
+
+The other thing we will discuss is this:</pre>
+<pre id=background><class>Environment</class>.Exit(<interface>0</interface>);</pre>
+<pre>This is how you can exit a C# program, not the most graceful of ways to be honest; it is more like stabbing the program to death rather than gracefully allowing it to leave, but it works so never mind. The <span id=codefont>Exit()</span> function requires a parameter you may use any int value that you with however a value of <interface>0</interface> means that this was intended to happen so that is why we are using it.
+
+The rest of the <keyword>else if</keyword>’s as stated before will be left as an exercise for the student (you) to figure out how it works.
+</pre>
+<hr>
+<pre>
+But here we have a problem. The user has no indication of what song is playing and does not know any of the controls so let’s fix that as the final part of this tutorial.
+
+We will add these 2 methods:
+</pre>
+<pre id=background>
+
+<mark><keyword>private static void</keyword> CleanAndDisplayName()
+{
+	<class>Console</class>.Clear();
+	PrintControls();
+	<class>Console</class>.WriteLine(<string>$"Currently Playing: {</string>player.currentMedia?.name<string>}"</string>);
+}
+
+<keyword>private static void</keyword> PrintControls()
+{
+	<keyword>var</keyword> controls = <string>"===========\nCommands:\nPause \nPlay\nSkip\nMute\nUnMute\n===========\nType a number for Volume Control: 1 - 10\n==========="</string>;</mark> <mark>
+	<class>Console</class>.WriteLine(controls);
+}</mark>
+</pre>
+<pre>The first will clean the console and call the second which displays the controls and then displays the name of the currently playing song.
+
+They are split into 2 methods so that they can easily be used separately if you wish to expand on the functionality yourself.
+
+Now we add it into the code:</pre>
+<pre id=background>
+
+<keyword>private static void</keyword> GetUserInput()
+{
+	<keyword>while</keyword> (<keyword>true</keyword>)
+	{
+		...
+		
+		<keyword>if</keyword> (<keyword>int</keyword>.TryParse(input, <keyword>out var</keyword> vol) && vol &#62;= <interface>0</interface> && vol &#60;= <interface>10</interface>)
+		{
+			player.settings.volume = volume = vol;
+			<mark>CleanAndDisplayName();</mark>
+		}
+		<keyword>else if</keyword> (input.Equals(<string>"skip"</string>, <enum>StringComparison</enum>.InvariantCultureIgnoreCase))
+		{
+			musicThread.Abort();
+			musicThread = <keyword>new</keyword> <class>Thread</class>(() => PlaySong());
+			musicThread.Start();
+			<mark>CleanAndDisplayName();</mark>
+		}
+		<keyword>else if</keyword> (input.Equals(<string>"mute"</string>, <enum>StringComparison</enum>.InvariantCultureIgnoreCase))
+		{
+			player.settings.mute = !player.settings.mute;
+			<mark>CleanAndDisplayName();</mark>
+		}
+		<keyword>else if</keyword> (input.Equals(<string>"unmute"</string>, <enum>StringComparison</enum>.InvariantCultureIgnoreCase))
+		{
+			player.settings.mute = <keyword>false</keyword>;
+			<mark>CleanAndDisplayName();</mark>
+		}
+		<keyword>else if</keyword> (input.Equals(<string>"pause"</string>, <enum>StringComparison</enum>.InvariantCultureIgnoreCase))
+		{
+			pausePosition = player.controls.currentPosition;
+			player.controls.pause();
+			<mark>CleanAndDisplayName();</mark>
+		}
+		<keyword>else if</keyword> (input.Equals(<string>"play"</string>, <enum>StringComparison</enum>.InvariantCultureIgnoreCase))
+		{
+			player.controls.currentPosition = pausePosition;
+			player.controls.play();
+			<mark>CleanAndDisplayName();</mark>
+		}
+		...
+		<keyword>else</keyword>
+		{
+			<mark>CleanAndDisplayName();</mark>
+			<class>Console</class>.WriteLine(<string>$"Invalid Input: {</string>input<string>}"</string>);
+			...
+}
+
+<keyword>private static void</keyword> PlaySong()
+{
+	...
+	player.controls.play();
+	<mark>CleanAndDisplayName();</mark>
+	
+	<keyword>while</keyword> (<keyword>true</keyword>)
+	{
+		<mark><class>Thread</class>.Sleep(<interface>50</interface>);</mark>
+	
+		<keyword>if</keyword> (player.controls.currentPosition == <interface>0</interface>)
+		{
+			...
+			player.controls.play();
+			<mark>CleanAndDisplayName();</mark>
+			<class>Thread</class>.Sleep(<interface>50</interface>);
+			...
+}
+
+</pre>
+<pre>As you can see all it does is remove the user input once the if branch has been completed. It is also added to the play song thread so it is updated when the song is changed.
+
+Another <span id=codefont><class>Thread</class>.Sleep(<interface>50</interface>)</span> has also been added in the while loop as I noticed the memory usage keeps rising if it was not there so with it there it is not stable, a before and after example picture is below:</pre>
+<div style="text-align:center;"><img src="img1.png" height=99px width=306px style="display:inlign-block;margin-left:auto;margin-right:auto;"><img src="img2.png" height=99px width=306px style="display:inlign-block;margin-left:auto;margin-right:auto;"></div>
+<pre>This is now what the command line looks like when the code is compiled:</pre>
+<img src="img3.png" style="display:block;margin-left:auto;margin-right:auto;">
+<pre>And when a user inputs an invalid command:</pre>
+<img src="img4.png" style="display:block;margin-left:auto;margin-right:auto;">
+<hr>
+<pre>Now that is it for this tutorial series. Short but I hope informative and engaging as this will give you something real and useful you can use yourself and show your friends. If you are wondering, the full source and compiled release is downloadable below. Hope you enjoyed yourself during this tutorial and don’t forget to check out my other series.</pre>
+
+<details id=codedetails>
+	<summary id=codesummary>Source Download</summary>
+	<pre><a href="Source.zip" target="_blank" style="color:red">Download Source</a></pre>
+</details>
+<details id=codedetails>
+	<summary id=codesummary>Compiled Download</summary>
+	<pre><a href="MusicPlayer.zip" target="_blank" style="color:red">Download Compiled Version (Windows)</a></pre>
+</details>
+<hr>
+<pre style="text-align:center"><a href="../../../programming/musicplayer.html" style="text-decoration:none;color:white;padding-right:10%;padding-left:10%">Back To Collection</a> | <a href="../3/mpcm3.html" style="text-decoration:none;color:white;padding-right:10%;padding-left:10%">Previous</a> | <a href="../../../programming/musicplayer.html" style="text-decoration:none;color:white;padding-right:10%;padding-left:10%">Next</a></pre>
+</div>
+</body>
+</html>
