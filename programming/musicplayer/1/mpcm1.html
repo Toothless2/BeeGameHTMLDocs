@@ -31,14 +31,14 @@ This tutorial assumes basic knowledge of C# (i.e. you know what a variable, func
 
 Lets get started
 
-First lets make a new console app project in Visual Studio 2017
+First let's make a new console app project in Visual Studio 2017
 </pre>
 <img src="img1.png" alt="Visual Studio 2017 New Project Dialog" class="centerimg">
-<pre>Before we start lets add the reference to the WMP library to the project. this is done by righ clicking on references on the right hand side of the window in the solution explorer and selection "Add Reference...".</pre>
+<pre>Before we start let's add the reference to the WMP library to the project. this is done by right clicking on references on the right hand side of the window in the solution explorer and selecting "Add Reference...".</pre>
 <img src="img2.png" alt="Add Reference" class="centerimg">
-<pre>Then to add the reference select "COM" and "Type Libraries" then search "Windows Media Player" in the search box select the check box and click ok (I am using version 12.0.15063.0 however all versions should work the same).</pre>
+<pre>Then to add the reference, select "COM" and "Type Libraries" then search "Windows Media Player". In the search box select the check box and click ok (I am using version 12.0.15063.0 however all versions should work the same).</pre>
 <img src="img3.png" alt="Refernce Manager" class="centerimg">
-<pre>Now all the setup is done with lets start actually coding.
+<pre>Now all the setup is done lets start actually coding.
 
 First things first we need a class to start working with so lets start with a skeleton class including all of the references that we will initially need.</pre>
 <hr>
@@ -91,7 +91,7 @@ So now let&apos;s add the ability to play one song that is specified in code to 
 
 </pre>
 <pre>
-So what we have done here is create two variables one to hold the songs path and another to actually play the song.
+So what we have done here is create two variables one to hold the song's path and another to actually play the song.
 
 When the code is run a <keyword>new</keyword> <interface>WindowsMediaPlayer</interface><span id=codefont></span>()</span> object will be created and stored in <span id=codefont>player</span>.
 
